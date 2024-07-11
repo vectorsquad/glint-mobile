@@ -1,8 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:login_signup/screens/mainScreen.dart';
 import 'package:login_signup/screens/signupScreen.dart';
+import 'package:login_signup/scripts/util.dart';
+import 'package:login_signup/scripts/validation.dart';
 import 'package:login_signup/widgets/customScaffold.dart';
+import 'package:login_signup/widgets/textFormField.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
+import '../scripts/signin.dart';
 import '../theme/theme.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -11,6 +20,8 @@ class SignInScreen extends StatefulWidget {
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
+
+final paramControllers = newFieldControllers(params);
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
@@ -40,6 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: SingleChildScrollView(
                 child: Form(
                   key: _formSignInKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -73,64 +85,21 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(
                         height: 40.0,
                       ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter Email';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text('Email'),
-                          hintText: 'Enter Email',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                      TextFormFieldC(
+                          "Username",
+                          "username",
+                          paramControllers,
+                          usernameValidator
                       ),
                       const SizedBox(
                         height: 25.0,
                       ),
-                      TextFormField(
-                        obscureText: true,
-                        obscuringCharacter: '*',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter Password';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text('Password'),
-                          hintText: 'Enter Password',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                      TextFormFieldC(
+                          "Password",
+                          "password_hash",
+                          paramControllers,
+                          passwordValidator,
+                          obscure: true
                       ),
                       const SizedBox(
                         height: 25.0,
@@ -156,16 +125,46 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // SIGN IN
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: lightColorScheme.primary,
-                            textStyle: const TextStyle(
-                              fontSize: 18
-                            )
-                          ),
-                          child: const Text('Sign In')
+                            onPressed: () async {
+
+                              // Return early if form is not valid
+                              if(!validForm(_formSignInKey)!) {
+                                return;
+                              }
+
+                              // For each text controller...
+                              for(final tc in textControllers.entries) {
+                                // Assign key in request params to user input
+                                params[tc.key] = tc.value.text;
+                              }
+
+                              // Return early if unable to sign in
+                              final res = await submit();
+                              if(res != null) {
+                                await QuickAlert.show(
+                                    context: context,
+                                    type: QuickAlertType.error,
+                                    text: jsonEncode(res.data)
+                                );
+                                return;
+                              }
+
+                              // Navigate to user's main screen
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (
+                                          (ctx) => const MainScreen()
+                                  ))
+                              );
+
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: lightColorScheme.primary,
+                                textStyle: const TextStyle(
+                                    fontSize: 18
+                                )
+                            ),
+                            child: const Text('Sign In')
                         ),
                       ),
                       const SizedBox(
