@@ -1,8 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:login_signup/screens/signinScreen.dart';
+import 'package:login_signup/scripts/signup.dart';
+import 'package:login_signup/scripts/util.dart';
+import 'package:login_signup/scripts/validation.dart';
 import 'package:login_signup/theme/theme.dart';
 import 'package:login_signup/widgets/customScaffold.dart';
+import 'package:quickalert/quickalert.dart';
+
+import '../widgets/textFormField.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -11,9 +18,18 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
+bool? validForm(GlobalKey<FormState> form) => form.currentState?.validate();
+
+final textControllers = newFieldControllers(paramsSignup);
+
+String? defaultValidator(String? s) {
+  return null;
+}
+
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formSignupKey = GlobalKey<FormState>();
   bool agreePersonalData = true;
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -40,6 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // get started form
                 child: Form(
                   key: _formSignupKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -56,128 +73,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 40.0,
                       ),
                       // first name
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter first name';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text('First Name'),
-                          hintText: 'Enter First Name',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
+                      TextFormFieldC("First Name", "name_first", textControllers, firstNameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       // last name
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter last name';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text('Last Name'),
-                          hintText: 'Enter Last Name',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                      TextFormFieldC("Last Name", "name_last", textControllers, lastNameValidator),
+                      const SizedBox(
+                        height: 25.0,
                       ),
+                      // username
+                      TextFormFieldC("Username", "username", textControllers, usernameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       // email
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter Email';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text('Email'),
-                          hintText: 'Enter Email',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
+                      TextFormFieldC("Email", "email", textControllers, emailValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       // password
-                      TextFormField(
-                        obscureText: true,
-                        obscuringCharacter: '*',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter Password';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text('Password'),
-                          hintText: 'Enter Password',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
+                      TextFormFieldC("Password", "password_hash", textControllers, passwordValidator, obscure: true),
                       const SizedBox(
                         height: 25.0,
                       ),
@@ -188,8 +104,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // SIGN UP FROM HERE
+                          onPressed: () async {
+
+                            // Return early if form is not valid
+                            if(!validForm(_formSignupKey)!) {
+                              return;
+                            }
+
+                            // For each text controller...
+                            for(final tc in textControllers.entries) {
+                              // Assign key in request params to user input
+                              paramsSignup[tc.key] = tc.value.text;
+                            }
+
+                            await submitSignupForm();
+                            await QuickAlert.show(context: context, type: QuickAlertType.info, text: "Check Email For Verification");
+                            Navigator.pop(context);
+
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: lightColorScheme.primary,
@@ -219,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (e) => const SignInScreen(),
