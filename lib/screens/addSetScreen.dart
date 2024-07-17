@@ -5,14 +5,14 @@ import 'package:login_signup/screens/selectedSetScreen.dart';
 import 'package:login_signup/theme/theme.dart';
 import 'package:login_signup/widgets/customScaffold.dart';
 
-class EditSetScreen extends StatefulWidget {
-  const EditSetScreen({super.key});
+class AddSetScreen extends StatefulWidget {
+  const AddSetScreen({super.key});
 
   @override
-  State<EditSetScreen> createState() => _SignUpScreenState();
+  State<AddSetScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<EditSetScreen> {
+class _SignUpScreenState extends State<AddSetScreen> {
   final _formSignupKey = GlobalKey<FormState>();
   bool agreePersonalData = true;
   @override
@@ -45,7 +45,7 @@ class _SignUpScreenState extends State<EditSetScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Edit Set',
+                        'Add Set',
                         style: TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.w900,
