@@ -9,12 +9,12 @@ bool validEmail(String value) {
   return emailReg.hasMatch(value);
 }
 
-const passwordMinLength = 10;
+const passwordMinLength = 8;
 const passwordInvalidLengthMessage = "Must be at least $passwordMinLength characters long";
 
 var passwordRegexes = {
-  "Missing one uppercase letter": RegExp(r'[A-Z]'),
-  "Missing one lowercase letter": RegExp(r'[a-z]'),
+  // "Missing one uppercase letter": RegExp(r'[A-Z]'),
+  // "Missing one lowercase letter": RegExp(r'[a-z]'),
   "Missing one number": RegExp(r'[0-9]')
 }.entries;
 
@@ -43,7 +43,7 @@ bool validPassword(String value) {
   return true;
 }
 
-// Function invalidator wrapper object
+// Validator and invalid message wrapper
 class Validator {
   final bool Function(String) valid;
   final String Function() invalidMessage;
@@ -82,20 +82,16 @@ ValidatorFunc createValidator(
 
 }
 
-// First name validator
 final firstNameValidator = createValidator("First Name");
 
-// Last name validator
 final lastNameValidator = createValidator("Last Name");
 
 final usernameValidator = createValidator("Username");
 
-// Email validator
 final emailValidator = createValidator("Email", [
-  Validator(util.str("Invalid Email"), validEmail)
+  Validator(util.str("Invalid Email"), validEmail),
 ]);
 
-// Password validator
 final passwordValidator = createValidator("Password", [
   Validator(() => invalidPasswordMessage, validPassword)
 ]);

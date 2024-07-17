@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:login_signup/screens/signinScreen.dart';
 import 'package:login_signup/scripts/signup.dart';
@@ -18,20 +16,13 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-bool? validForm(GlobalKey<FormState> form) => form.currentState?.validate();
-
-final textControllers = newFieldControllers(paramsSignup);
-
-String? defaultValidator(String? s) {
-  return null;
-}
-
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formSignupKey = GlobalKey<FormState>();
   bool agreePersonalData = true;
 
   @override
   Widget build(BuildContext context) {
+
     return CustomScaffold(
       child: Column(
         children: [
@@ -73,27 +64,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 40.0,
                       ),
                       // first name
-                      TextFormFieldC("First Name", "name_first", textControllers, firstNameValidator),
+                      TextFormFieldC("First Name", "name_first", paramsSignup, firstNameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       // last name
-                      TextFormFieldC("Last Name", "name_last", textControllers, lastNameValidator),
+                      TextFormFieldC("Last Name", "name_last", paramsSignup, lastNameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       // username
-                      TextFormFieldC("Username", "username", textControllers, usernameValidator),
+                      TextFormFieldC("Username", "username", paramsSignup, usernameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       // email
-                      TextFormFieldC("Email", "email", textControllers, emailValidator),
+                      TextFormFieldC("Email", "email", paramsSignup, emailValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       // password
-                      TextFormFieldC("Password", "password_hash", textControllers, passwordValidator, obscure: true),
+                      TextFormFieldC("Password", "password_hash", paramsSignup, passwordValidator, obscure: true),
                       const SizedBox(
                         height: 25.0,
                       ),
@@ -107,19 +98,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: () async {
 
                             // Return early if form is not valid
-                            if(!validForm(_formSignupKey)!) {
+                            if(!validForm(_formSignupKey)) {
                               return;
                             }
 
-                            // For each text controller...
-                            for(final tc in textControllers.entries) {
-                              // Assign key in request params to user input
-                              paramsSignup[tc.key] = tc.value.text;
+                            // Submit sign up data
+                            final Val(:ok, :other) = await submitSignup();
+
+                            // Alert user if no "ok" value and return early.
+                            if(ok == null) {
+                              await QuickAlert.show(
+                                  context: context,
+                                  type: QuickAlertType.error,
+                                  text: other
+                              );
+                              return;
                             }
 
-                            await submitSignupForm();
-                            await QuickAlert.show(context: context, type: QuickAlertType.info, text: "Check Email For Verification");
-                            Navigator.pop(context);
+                            // Alert user to check their email
+                            await QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.info,
+                                text: "Check Email For Verification"
+                            );
+
+                            // Navigate to sign in screen
+                            nextRoute(context, const SignInScreen());
 
                           },
                           style: ElevatedButton.styleFrom(

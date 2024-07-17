@@ -6,14 +6,14 @@ class TextFormFieldC extends StatelessWidget {
 
   final String prettyName;
   final String paramKey;
-  final Map<String, TextEditingController> controllers;
+  final Map<String, dynamic> params;
   final ValidatorFunc validator;
   final bool obscure;
 
   const TextFormFieldC(
       this.prettyName,
       this.paramKey,
-      this.controllers,
+      this.params,
       this.validator,
       {
         super.key,
@@ -27,7 +27,7 @@ class TextFormFieldC extends StatelessWidget {
     return TextFormField(
       obscureText: obscure,
       validator: validator,
-      controller: controllers[paramKey],
+      onChanged: (text) => params[paramKey] = text,
       decoration: InputDecoration(
         label: Text(prettyName),
         hintText: "Enter $prettyName",

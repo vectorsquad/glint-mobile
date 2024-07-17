@@ -1,9 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-
-
 
 bool cookieJarConfigured = false;
 var cj = PersistCookieJar();
@@ -48,12 +49,16 @@ abstract class ApiResponseError {
   late dynamic details;
 }
 
+nonExistentCookie(String name) => "could not find cookie with name `$name`";
+
 // Get first cookie that matches name
 SerializableCookie? getSerializableCookie(String name ) {
 
   // Return null early if no cookies exist for API host
+  log(jsonEncode(cj.hostCookies));
   final cookiesHost = cj.hostCookies[hostname];
   if(cookiesHost == null) {
+    log("no cookies exist for API host");
     return null;
   }
 
@@ -67,6 +72,7 @@ SerializableCookie? getSerializableCookie(String name ) {
   }
 
   // Only here if no cookie with name exists in any paths for API hostname
+  log(nonExistentCookie(name));
   return null;
 
 }

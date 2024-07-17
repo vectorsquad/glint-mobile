@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:login_signup/screens/mainScreen.dart';
+import 'package:login_signup/screens/deckListScreen.dart';
 import 'package:login_signup/screens/signupScreen.dart';
+import 'package:login_signup/scripts/global.dart';
 import 'package:login_signup/scripts/util.dart';
 import 'package:login_signup/scripts/validation.dart';
 import 'package:login_signup/widgets/customScaffold.dart';
@@ -21,13 +22,14 @@ class SignInScreen extends StatefulWidget {
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
-final paramControllers = newFieldControllers(params);
-
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
+  final textControllers = newFieldControllers(paramsSignin);
+
   @override
   Widget build(BuildContext context) {
+
     return CustomScaffold(
       child: Column(
         children: [
@@ -88,7 +90,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       TextFormFieldC(
                           "Username",
                           "username",
-                          paramControllers,
+                          paramsSignin,
                           usernameValidator
                       ),
                       const SizedBox(
@@ -97,7 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       TextFormFieldC(
                           "Password",
                           "password_hash",
-                          paramControllers,
+                          paramsSignin,
                           passwordValidator,
                           obscure: true
                       ),
@@ -127,35 +129,28 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: ElevatedButton(
                             onPressed: () async {
 
-                              // Return early if form is not valid
-                              if(!validForm(_formSignInKey)!) {
+                              // Return early if form is not valid.
+                              if(!validForm(_formSignInKey)) {
                                 return;
                               }
 
-                              // For each text controller...
-                              for(final tc in textControllers.entries) {
-                                // Assign key in request params to user input
-                                params[tc.key] = tc.value.text;
-                              }
+                              log(jsonEncode(paramsSignin));
 
-                              // Return early if unable to sign in
-                              final res = await submit();
-                              if(res != null) {
+                              // Submit form.
+                              final Val(:ok, :other) = await submitSignin();
+
+                              // Alert user if no "ok" value and return early.
+                              if(ok == null) {
                                 await QuickAlert.show(
                                     context: context,
                                     type: QuickAlertType.error,
-                                    text: jsonEncode(res.data)
+                                    text: other
                                 );
-                                return;
+                                // return;
                               }
 
-                              // Navigate to user's main screen
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (
-                                          (ctx) => const MainScreen()
-                                  ))
-                              );
+                              // Navigate to main screen
+                              await nextRoute(context, DeckListScreen());
 
                             },
                             style: ElevatedButton.styleFrom(
@@ -185,7 +180,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (e) => const SignUpScreen(),
