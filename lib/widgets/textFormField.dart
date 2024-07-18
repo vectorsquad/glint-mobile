@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../scripts/validation.dart';
+import '../scripts/inputValidation.dart';
 
 class TextFormFieldC extends StatelessWidget {
 
-  final String prettyName;
-  final String paramKey;
-  final Map<String, dynamic> params;
+  final String name;
+  final Function(String) onChanged;
   final ValidatorFunc validator;
   final bool obscure;
 
   const TextFormFieldC(
-      this.prettyName,
-      this.paramKey,
-      this.params,
-      this.validator,
       {
+        required this.name,
+        required this.onChanged,
+        required this.validator,
         super.key,
         this.obscure = false
       }
@@ -27,10 +25,10 @@ class TextFormFieldC extends StatelessWidget {
     return TextFormField(
       obscureText: obscure,
       validator: validator,
-      onChanged: (text) => params[paramKey] = text,
+      onChanged: onChanged,
       decoration: InputDecoration(
-        label: Text(prettyName),
-        hintText: "Enter $prettyName",
+        label: Text(name),
+        hintText: "Enter $name",
         hintStyle: const TextStyle(
           color: Colors.black26,
         ),

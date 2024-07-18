@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -9,6 +8,7 @@ import 'global.dart';
 
 String Function() str(String s) => () => s;
 
+/// Generic wrapper for optional values with an alternative.
 class Val<Ok, Other> {
   Ok? ok;
   Other other;
@@ -30,24 +30,7 @@ class Val<Ok, Other> {
   }
 }
 
-assignableParam(Map<String, String> m, String k) {
-  return (String? v) => {
-    if(v != null) {
-      m[k] = v
-    }
-  };
-}
-
-// New text editing controllers
-Map<String, TextEditingController> newFieldControllers(Map<String, String> params) {
-  final controllers = HashMap<String, TextEditingController>();
-  for (final k in params.keys) {
-    controllers[k] = TextEditingController();
-  }
-  return controllers;
-}
-
-// Return true if a form is valid, false otherwise.
+/// True if form is valid, false otherwise.
 bool validForm(GlobalKey<FormState> form) {
 
   final currentState = form.currentState;
@@ -60,7 +43,7 @@ bool validForm(GlobalKey<FormState> form) {
 
 typedef ValResponse = Val<Response<dynamic>, String>;
 
-// Send an HTTP request, return possible success and error response.
+/// Send an HTTP request, return possible success and error response.
 Future<ValResponse> req(Future<Response<dynamic>> Function() callback) async {
 
   final val = Val<Response<dynamic>, String>("");
@@ -126,9 +109,6 @@ between<T>(T spacer, List<T> existing) {
 
 }
 
-typedef RequestParams = Map<String, String>;
-typedef RequestParamsControllers = Map<String, TextEditingController>;
-
 typedef HttpProps = Map<String, dynamic>;
 
 Future<JWT?> getUserId() async {
@@ -139,4 +119,8 @@ Future<JWT?> getUserId() async {
   }
 
   return JWT.decode(ck.cookie.value);
+}
+
+Function(String) newParamSetter(Map<String, dynamic> params, String key) {
+  return (s) => params[key] = s;
 }

@@ -1,35 +1,24 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:login_signup/screens/deckListScreen.dart';
 import 'package:login_signup/screens/signupScreen.dart';
-import 'package:login_signup/scripts/global.dart';
 import 'package:login_signup/scripts/util.dart';
-import 'package:login_signup/scripts/validation.dart';
+import 'package:login_signup/scripts/inputValidation.dart';
 import 'package:login_signup/widgets/customScaffold.dart';
 import 'package:login_signup/widgets/textFormField.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
-import '../scripts/signin.dart';
+import '../scripts/requests.dart';
 import '../theme/theme.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  SignInScreen({super.key});
 
-  @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
-  bool rememberPassword = true;
-  final textControllers = newFieldControllers(paramsSignin);
+  final Map<String, dynamic> params = {};
 
   @override
   Widget build(BuildContext context) {
-
     return CustomScaffold(
       child: Column(
         children: [
@@ -88,19 +77,17 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 40.0,
                       ),
                       TextFormFieldC(
-                          "Username",
-                          "username",
-                          paramsSignin,
-                          usernameValidator
+                          name: "Username",
+                          onChanged: newParamSetter(params, "username"),
+                          validator: usernameValidator
                       ),
                       const SizedBox(
                         height: 25.0,
                       ),
                       TextFormFieldC(
-                          "Password",
-                          "password_hash",
-                          paramsSignin,
-                          passwordValidator,
+                          name: "Password",
+                          onChanged: newParamSetter(params, "password_hash"),
+                          validator: passwordValidator,
                           obscure: true
                       ),
                       const SizedBox(
@@ -134,10 +121,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                 return;
                               }
 
-                              log(jsonEncode(paramsSignin));
-
                               // Submit form.
-                              final Val(:ok, :other) = await submitSignin();
+                              final Val(:ok, :other) = await submitSignin(params);
 
                               // Alert user if no "ok" value and return early.
                               if(ok == null) {
@@ -149,8 +134,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                 // return;
                               }
 
-                              // Navigate to main screen
-                              await nextRoute(context, DeckListScreen());
+                              // Navigate to list of decks.
+                              await nextRoute(context, const DeckListScreen());
 
                             },
                             style: ElevatedButton.styleFrom(
@@ -159,7 +144,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                     fontSize: 18
                                 )
                             ),
-                            child: const Text('Sign In')
+                            child: const Text('Submit')
                         ),
                       ),
                       const SizedBox(
@@ -183,7 +168,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (e) => const SignUpScreen(),
+                                  builder: (e) => SignUpScreen(),
                                 ),
                               );
                             },

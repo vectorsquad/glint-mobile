@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup/screens/signinScreen.dart';
-import 'package:login_signup/scripts/signup.dart';
+import 'package:login_signup/screens/verifyScreen.dart';
 import 'package:login_signup/scripts/util.dart';
-import 'package:login_signup/scripts/validation.dart';
+import 'package:login_signup/scripts/inputValidation.dart';
 import 'package:login_signup/theme/theme.dart';
 import 'package:login_signup/widgets/customScaffold.dart';
 import 'package:quickalert/quickalert.dart';
 
+import '../scripts/requests.dart';
 import '../widgets/textFormField.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({super.key});
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
   final _formSignupKey = GlobalKey<FormState>();
-  bool agreePersonalData = true;
+  final Map<String, dynamic> params = {};
 
   @override
   Widget build(BuildContext context) {
@@ -63,35 +59,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 40.0,
                       ),
-                      // first name
-                      TextFormFieldC("First Name", "name_first", paramsSignup, firstNameValidator),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      // last name
-                      TextFormFieldC("Last Name", "name_last", paramsSignup, lastNameValidator),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      // username
-                      TextFormFieldC("Username", "username", paramsSignup, usernameValidator),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      // email
-                      TextFormFieldC("Email", "email", paramsSignup, emailValidator),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      // password
-                      TextFormFieldC("Password", "password_hash", paramsSignup, passwordValidator, obscure: true),
-                      const SizedBox(
-                        height: 25.0,
+                      TextFormFieldC(
+                          name: "First Name",
+                          onChanged: newParamSetter(params, "name_first"),
+                          validator:  firstNameValidator
                       ),
                       const SizedBox(
                         height: 25.0,
                       ),
-                      // signup button
+                      TextFormFieldC(
+                          name: "Last Name",
+                          onChanged: newParamSetter(params, "name_last"),
+                          validator:  lastNameValidator
+                      ),
+                      const SizedBox(
+                        height: 25.0,
+                      ),
+                      TextFormFieldC(
+                          name: "Email",
+                          onChanged: newParamSetter(params, "email"),
+                          validator: emailValidator
+                      ),
+                      const SizedBox(
+                        height: 25.0,
+                      ),
+                      TextFormFieldC(
+                          name: "Username",
+                          onChanged: newParamSetter(params, "username"),
+                          validator: usernameValidator,
+                      ),
+                      const SizedBox(
+                        height: 25.0,
+                      ),
+                      TextFormFieldC(
+                          name: "Password",
+                          onChanged: newParamSetter(params, "password_hash"),
+                          validator:  passwordValidator,
+                          obscure: true
+                      ),
+                      const SizedBox(
+                        height: 25.0,
+                      ),
+                      const SizedBox(
+                        height: 25.0,
+                      ),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -103,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
 
                             // Submit sign up data
-                            final Val(:ok, :other) = await submitSignup();
+                            final Val(:ok, :other) = await submitSignup(params);
 
                             // Alert user if no "ok" value and return early.
                             if(ok == null) {
@@ -115,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return;
                             }
 
-                            // Alert user to check their email
+                            // Tell user to check their email
                             await QuickAlert.show(
                                 context: context,
                                 type: QuickAlertType.info,
@@ -123,7 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             );
 
                             // Navigate to sign in screen
-                            nextRoute(context, const SignInScreen());
+                            await nextRoute(context, const VerifyScreen());
 
                           },
                           style: ElevatedButton.styleFrom(
@@ -132,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   fontSize: 18
                               )
                           ),
-                          child: const Text('Sign up'),
+                          child: const Text('Submit'),
                         ),
                       ),
                       const SizedBox(
@@ -157,12 +168,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (e) => const SignInScreen(),
+                                  builder: (e) => SignInScreen(),
                                 ),
                               );
                             },
                             child: Text(
-                              'Sign in',
+                              'Sign In',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: lightColorScheme.primary,

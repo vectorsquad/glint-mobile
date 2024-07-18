@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:login_signup/models/deckListModel.dart';
 import 'package:login_signup/screens/welcomeScreen.dart';
 import 'package:login_signup/theme/theme.dart';
 import 'package:login_signup/widgets/customScaffold.dart';
-import 'package:login_signup/widgets/deckBox.dart';
 import 'package:login_signup/widgets/deckViewer.dart';
-import 'package:provider/provider.dart';
 
 class DeckListScreen extends StatelessWidget {
 

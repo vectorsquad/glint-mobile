@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:login_signup/scripts/requests.dart';
 
-import '../scripts/global.dart';
 import '../scripts/util.dart';
 
 Future<List<HttpProps>> getDeckList() async {
@@ -12,7 +12,7 @@ Future<List<HttpProps>> getDeckList() async {
     return [];
   }
   
-  final Val(:ok, :other) = await req(() => dio.post(apiUrl("findDeck")));
+  final Val(:ok, :other) = await getDecks();
   if(ok == null) {
     log(other);
     return [];
