@@ -87,10 +87,29 @@ Future<ValResponse> req(Future<Response<dynamic>> Function() callback) async {
 }
 
 // Navigate to next route
-Future<dynamic> nextRoute(BuildContext context, Widget widget) {
-  return Navigator.pushReplacement(
+Future<void> replaceRoute(BuildContext context, Widget widget) async {
+  await Navigator.pushReplacement(
     context,
     MaterialPageRoute(builder: (ctx) => widget),
+  );
+}
+
+Future<void> pushRoute(BuildContext context, Widget widget) async {
+  await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (ctx) => widget
+      )
+  );
+}
+
+Future<void> replaceRouteAll(BuildContext context, Widget widget) async {
+  await Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+          builder: (ctx) => widget
+      ),
+      (route) => false
   );
 }
 
@@ -124,3 +143,5 @@ Future<JWT?> getUserId() async {
 Function(String) newParamSetter(Map<String, dynamic> params, String key) {
   return (s) => params[key] = s;
 }
+
+Future<void> deleteAuthCache() => cj.delete(apiUri("login"));

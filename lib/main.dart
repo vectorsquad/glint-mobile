@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup/models/deckListModel.dart';
-import 'package:login_signup/screens/welcomeScreen.dart';
 import 'package:login_signup/theme/theme.dart';
+import 'package:login_signup/widgets/routes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Glint',
           theme: lightMode,
-          home: const WelcomeScreen(),
+          home: const ExhaustiveLoginRoute(),
         )
     );
   }

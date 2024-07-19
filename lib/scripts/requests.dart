@@ -5,7 +5,7 @@ import 'global.dart';
 typedef RequestParams = Map<String, dynamic>;
 typedef ValRespFuture = Future<ValResponse>;
 
-ValRespFuture submitSignin(RequestParams params) {
+ValRespFuture submitSignin(RequestParams? params) {
   return req(() => dio.post(apiUrl("login"), data: params));
 }
 

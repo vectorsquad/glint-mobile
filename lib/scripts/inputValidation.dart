@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'util.dart' as util;
 
 typedef ValidatorFunc = String? Function(String?);
