@@ -40,7 +40,7 @@ class DeckListPage extends StatelessWidget {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  const SelectedSetRoute(),
+                  const DeckListViewer(),
                   const SizedBox(
                     height: 20.0,
                   ),
