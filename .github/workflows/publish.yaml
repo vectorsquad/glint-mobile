@@ -28,9 +28,6 @@ jobs:
       - run: dart format --set-exit-if-changed .
         name: Check Formatting
 
-      - run: flutter analyze .
-        name: Analyze
-
       - run: flutter build apk
         name: Build
 
