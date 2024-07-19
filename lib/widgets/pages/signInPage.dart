@@ -4,10 +4,13 @@ class SignInPage extends StatelessWidget {
   SignInPage({super.key});
 
   final _formSignInKey = GlobalKey<FormState>();
-  final Map<String, dynamic> params = {};
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> payload = {};
+    final Map<String, dynamic> params = {};
+    payload["login"] = params;
+
     return Column(
       children: [
         const Expanded(
@@ -110,7 +113,8 @@ class SignInPage extends StatelessWidget {
                             }
 
                             // Submit form.
-                            final Val(:ok, :other) = await submitSignin(params);
+                            log(jsonEncode(payload));
+                            final Val(:ok, :other) = await submitSignin(payload);
 
                             // Alert user if no "ok" value and return early.
                             if(ok == null) {

@@ -2,6 +2,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:login_signup/scripts/global.dart';
 import 'package:login_signup/widgets/pages.dart';
 import 'package:login_signup/widgets/primitives.dart';
 import 'package:quickalert/models/quickalert_type.dart';

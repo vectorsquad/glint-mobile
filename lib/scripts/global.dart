@@ -1,42 +1,29 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
-bool cookieJarConfigured = false;
 var cj = PersistCookieJar();
-
-// Setup persisting cookie jar.
-setupCookieJar() async {
-
-  // Return early if cookie jar has already been setup
-  if(cookieJarConfigured) {
-    return;
-  }
-
-  // Get reference to and create app's cache dir
-  var appCacheDir = await path_provider.getApplicationCacheDirectory();
-  appCacheDir.create();
-
-  // Configure cookie jar to persist inside of app's cache dir
-  cj = PersistCookieJar(storage: FileStorage(appCacheDir.path));
-
-  // Set cookie jar configuration to true in case of future invocations
-  cookieJarConfigured = true;
-}
 
 var dio = Dio();
 
 // Setup Dio-based HTTP fetcher
 setupDio() async {
-  setupCookieJar();
+
+  // Get reference to and create app's cache dir
+  var appCacheDir = await path_provider.getApplicationCacheDirectory();
+  await appCacheDir.create(recursive: true);
+
+  // Configure cookie jar to persist inside of app's cache dir
+  cj = PersistCookieJar(storage: FileStorage(appCacheDir.path));
+
+  // Use persisting cookie jar for dio requests/responses.
   dio.interceptors.add(CookieManager(cj));
 }
-
-final setupDioFuture = setupDio();
 
 const hostname = "glint.cleanmango.com";
 const hostUrl = "https://$hostname";
