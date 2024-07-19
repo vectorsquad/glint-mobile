@@ -1,7 +1,7 @@
 part of 'routes.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+class WelcomeRoute extends StatelessWidget {
+  const WelcomeRoute({super.key});
 
   @override
   Widget build(BuildContext context) {

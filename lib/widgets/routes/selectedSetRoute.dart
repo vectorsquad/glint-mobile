@@ -1,7 +1,7 @@
 part of 'routes.dart';
 
-class SelectedSetScreen extends StatelessWidget {
-  const SelectedSetScreen({super.key});
+class SelectedSetRoute extends StatelessWidget {
+  const SelectedSetRoute({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -124,7 +124,7 @@ class SignUpScreen extends StatelessWidget {
                             );
 
                             // Navigate to sign in screen
-                            await replaceRoute(context, const VerifyScreen());
+                            await replaceRoute(context, const VerifyRoute());
 
                           },
                           style: ElevatedButton.styleFrom(

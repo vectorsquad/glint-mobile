@@ -40,12 +40,12 @@ class DeckListPage extends StatelessWidget {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  const DeckListViewer(),
+                  const SelectedSetRoute(),
                   const SizedBox(
                     height: 20.0,
                   ),
                   CircleButton(
-                    onPressed: () => pushRoute(context, const AboutUsScreen()),
+                    onPressed: () => pushRoute(context, const AboutUsRoute()),
                   ),
                   const SizedBox(
                     height: 20.0,
@@ -79,7 +79,7 @@ class DeckListPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           await deleteAuthCache();
-                          await replaceRouteAll(context, const WelcomeScreen());
+                          await replaceRouteAll(context, const WelcomeRoute());
                         },
                         child: Text(
                           'Sign Out',

@@ -250,7 +250,7 @@ class EditSetScreen extends StatelessWidget {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(
-                                    builder: (e) => const SelectedSetScreen(),
+                                    builder: (e) => const SelectedSetRoute(),
                                   )
                               );
                             },

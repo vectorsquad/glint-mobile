@@ -1,7 +1,7 @@
 part of 'routes.dart';
 
-class AboutUsScreen extends StatelessWidget {
-  const AboutUsScreen({super.key});
+class AboutUsRoute extends StatelessWidget {
+  const AboutUsRoute({super.key});
 
   @override
   Widget build(BuildContext context) {

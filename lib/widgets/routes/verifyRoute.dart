@@ -1,7 +1,7 @@
 part of 'routes.dart';
 
-class VerifyScreen extends StatelessWidget {
-  const VerifyScreen({super.key});
+class VerifyRoute extends StatelessWidget {
+  const VerifyRoute({super.key});
 
   @override
   Widget build(BuildContext context) {
