@@ -1,4 +1,4 @@
-part of '../primitives.dart';
+part of 'primitives.dart';
 
 class WelcomeButton extends StatelessWidget {
   const WelcomeButton(

@@ -1,4 +1,4 @@
-part of '../pages.dart';
+part of 'pages.dart';
 
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});

@@ -1,21 +1,31 @@
-part of '../primitives.dart';
+part of 'primitives.dart';
 
 class DeckListViewer extends StatelessWidget {
   const DeckListViewer({super.key});
 
   @override
-  Widget build(BuildContext context) => Consumer<DeckListModel>(
+  Widget build(BuildContext context) => Consumer<DeckListNotifier>(
       builder: (context, model, child) => FutureBuilder(
         future: model.deckList,
         builder: (context, snapshot) {
 
-          final data = snapshot.data;
+          final isWaiting = snapshot.connectionState == ConnectionState.waiting;
+          final isActive = snapshot.connectionState == ConnectionState.active;
 
-          if(snapshot.connectionState == ConnectionState.done && data != null) {
+          if(isActive || isWaiting) {
+            return const CircularProgressIndicator(backgroundColor: Colors.green);
+          }
+
+          if(snapshot.connectionState == ConnectionState.none) {
+
+            final ok = snapshot.data?.ok;
+            if(ok == null) {
+              return const CircularProgressIndicator(backgroundColor: Colors.green);
+            }
 
             final List<Widget> deckCardBoxes = [];
 
-            for(final deckProp in data) {
+            for(final deckProp in ok.decks) {
               deckCardBoxes.add(DeckBox(deckProp));
             }
 

@@ -1,4 +1,4 @@
-part of '../primitives.dart';
+part of 'primitives.dart';
 
 class TextFormFieldC extends StatelessWidget {
 

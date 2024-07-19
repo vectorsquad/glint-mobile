@@ -1,4 +1,4 @@
-part of '../routes.dart';
+part of 'routes.dart';
 
 class EditSetScreen extends StatelessWidget {
   const EditSetScreen({super.key});

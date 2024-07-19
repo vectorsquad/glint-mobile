@@ -1,4 +1,4 @@
-part of '../primitives.dart';
+part of 'primitives.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold({super.key, this.child});

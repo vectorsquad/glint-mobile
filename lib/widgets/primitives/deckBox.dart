@@ -1,10 +1,10 @@
-part of '../primitives.dart';
+part of 'primitives.dart';
 
 class DeckProps {
 }
 
 class DeckBox extends StatelessWidget {
-  final HttpProps props;
+  final DeckModel props;
 
   const DeckBox(this.props, {super.key});
 
@@ -26,7 +26,7 @@ class DeckBox extends StatelessWidget {
                 fontSize: 24
             )
         ),
-        child: Text(props["name"]),
+        child: Text(props.name),
       ),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:login_signup/models/deckListModel.dart';
 import 'package:login_signup/theme/theme.dart';
-import 'package:login_signup/widgets/routes.dart';
+import 'package:login_signup/widgets/routes/routes.dart';
 import 'package:provider/provider.dart';
+
+import 'notifiers/notifiers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => DeckListModel()),
+          ChangeNotifierProvider(create: (context) => DeckListNotifier()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
