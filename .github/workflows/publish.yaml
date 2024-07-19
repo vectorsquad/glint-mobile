@@ -5,12 +5,19 @@ on:
     tags:
       - "v*.*.*"
 
+env:
+  android_release_path: build/app/outputs/apk/release/app-release.apk
+
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: heinrichreimer/action-github-changelog-generator@v2.3
+        name: Generate Changelog
+        id: generate_changelog
+
       - uses: actions/checkout@v4
         name: Clone Repo
 
@@ -35,11 +42,9 @@ jobs:
       - run: flutter build apk
         name: Build
 
-      - uses: actions/upload-artifact@v4
-        name: Upload Assets
-        with:
-          name: release-apk
-          path: build/app/outputs/apk/release/app-release.apk
-
       - uses: softprops/action-gh-release@v2
-        name: Release
+        name: Create Release
+        with:
+          body: ${{ steps.generate_changelog.outputs.changelog }}
+          files: |
+            ${{ env.android_release_path }}
