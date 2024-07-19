@@ -10,18 +10,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+        name: Clone Repo
+
       - uses: actions/setup-java@v1
+        name: Setup Java
         with:
           java-version: '12.x'
+
       - uses: subosito/flutter-action@v1
+        name: Setup Flutter
         with:
           channel: 'beta'
+
       - run: flutter pub get
-      - run: flutter format --set-exit-if-changed .
+        name: Get Dependencies
+
+      - run: dart format --set-exit-if-changed .
+        name: Check Formatting
+
       - run: flutter analyze .
+        name: Analyze
+
       - run: flutter build apk
+        name: Build
+
       - uses: actions/upload-artifact@v1
+        name: Upload Assets
         with:
           name: release-apk
           path: build/app/outputs/apk/release/app-release.apk
+
       - uses: softprops/action-gh-release@v2
+        name: Release
