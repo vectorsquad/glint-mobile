@@ -18,11 +18,18 @@ class DeckListViewer extends StatelessWidget {
                     backgroundColor: Colors.green);
               }
 
-              if (snapshot.connectionState == ConnectionState.none) {
-                final ok = snapshot.data?.ok;
+              final data = snapshot.data;
+
+              if (snapshot.connectionState == ConnectionState.done &&
+                  data != null) {
+                final Val(:ok, :other) = data;
+
                 if (ok == null) {
-                  return const CircularProgressIndicator(
-                      backgroundColor: Colors.green);
+                  QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.error,
+                      text: other);
+                  return const Text("No Decks Created");
                 }
 
                 final List<Widget> deckCardBoxes = [];
@@ -34,9 +41,7 @@ class DeckListViewer extends StatelessWidget {
                 return Column(children: deckCardBoxes);
               }
 
-              return const CircularProgressIndicator(
-                backgroundColor: Colors.green,
-              );
+              return const Text("No Decks Created");
             },
           ));
 }
