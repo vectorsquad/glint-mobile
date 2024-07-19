@@ -70,8 +70,7 @@ class SignInPage extends StatelessWidget {
                     TextFormFieldC(
                         name: "Username",
                         onChanged: newParamSetter(params, "username"),
-                        validator: usernameValidator
-                    ),
+                        validator: usernameValidator),
                     const SizedBox(
                       height: 25.0,
                     ),
@@ -79,8 +78,7 @@ class SignInPage extends StatelessWidget {
                         name: "Password",
                         onChanged: newParamSetter(params, "password_hash"),
                         validator: passwordValidator,
-                        obscure: true
-                    ),
+                        obscure: true),
                     const SizedBox(
                       height: 25.0,
                     ),
@@ -106,38 +104,32 @@ class SignInPage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () async {
-
                             // Return early if form is not valid.
-                            if(!validForm(_formSignInKey)) {
+                            if (!validForm(_formSignInKey)) {
                               return;
                             }
 
                             // Submit form.
                             log(jsonEncode(payload));
-                            final Val(:ok, :other) = await submitSignin(payload);
+                            final Val(:ok, :other) =
+                                await submitSignin(payload);
 
                             // Alert user if no "ok" value and return early.
-                            if(ok == null) {
+                            if (ok == null) {
                               await QuickAlert.show(
                                   context: context,
                                   type: QuickAlertType.error,
-                                  text: other
-                              );
+                                  text: other);
                               // return;
                             }
 
                             // Navigate to list of decks.
                             await replaceRoute(context, const DeckListScreen());
-
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: lightColorScheme.primary,
-                              textStyle: const TextStyle(
-                                  fontSize: 18
-                              )
-                          ),
-                          child: const Text('Submit')
-                      ),
+                              textStyle: const TextStyle(fontSize: 18)),
+                          child: const Text('Submit')),
                     ),
                     const SizedBox(
                       height: 25.0,

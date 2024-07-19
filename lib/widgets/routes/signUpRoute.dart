@@ -8,7 +8,6 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return CustomScaffold(
       child: Column(
         children: [
@@ -52,31 +51,28 @@ class SignUpScreen extends StatelessWidget {
                       TextFormFieldC(
                           name: "First Name",
                           onChanged: newParamSetter(params, "name_first"),
-                          validator:  firstNameValidator
-                      ),
+                          validator: firstNameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       TextFormFieldC(
                           name: "Last Name",
                           onChanged: newParamSetter(params, "name_last"),
-                          validator:  lastNameValidator
-                      ),
+                          validator: lastNameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       TextFormFieldC(
                           name: "Email",
                           onChanged: newParamSetter(params, "email"),
-                          validator: emailValidator
-                      ),
+                          validator: emailValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       TextFormFieldC(
-                          name: "Username",
-                          onChanged: newParamSetter(params, "username"),
-                          validator: usernameValidator,
+                        name: "Username",
+                        onChanged: newParamSetter(params, "username"),
+                        validator: usernameValidator,
                       ),
                       const SizedBox(
                         height: 25.0,
@@ -84,9 +80,8 @@ class SignUpScreen extends StatelessWidget {
                       TextFormFieldC(
                           name: "Password",
                           onChanged: newParamSetter(params, "password_hash"),
-                          validator:  passwordValidator,
-                          obscure: true
-                      ),
+                          validator: passwordValidator,
+                          obscure: true),
                       const SizedBox(
                         height: 25.0,
                       ),
@@ -97,9 +92,8 @@ class SignUpScreen extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () async {
-
                             // Return early if form is not valid
-                            if(!validForm(_formSignupKey)) {
+                            if (!validForm(_formSignupKey)) {
                               return;
                             }
 
@@ -107,12 +101,11 @@ class SignUpScreen extends StatelessWidget {
                             final Val(:ok, :other) = await submitSignup(params);
 
                             // Alert user if no "ok" value and return early.
-                            if(ok == null) {
+                            if (ok == null) {
                               await QuickAlert.show(
                                   context: context,
                                   type: QuickAlertType.error,
-                                  text: other
-                              );
+                                  text: other);
                               return;
                             }
 
@@ -120,19 +113,14 @@ class SignUpScreen extends StatelessWidget {
                             await QuickAlert.show(
                                 context: context,
                                 type: QuickAlertType.info,
-                                text: "Check Email For Verification"
-                            );
+                                text: "Check Email For Verification");
 
                             // Navigate to sign in screen
                             await replaceRoute(context, const VerifyRoute());
-
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: lightColorScheme.primary,
-                              textStyle: const TextStyle(
-                                  fontSize: 18
-                              )
-                          ),
+                              textStyle: const TextStyle(fontSize: 18)),
                           child: const Text('Submit'),
                         ),
                       ),

@@ -68,7 +68,6 @@ class DeckListPage extends StatelessWidget {
                             color: lightColorScheme.primary,
                           ),
                         ),
-
                       ),
                     ],
                   ),
@@ -89,18 +88,15 @@ class DeckListPage extends StatelessWidget {
                             color: lightColorScheme.primary,
                           ),
                         ),
-
                       ),
                     ],
                   ),
                 ],
-              )
-              ,
+              ),
             ),
           ),
         ),
       ],
     );
   }
-
 }

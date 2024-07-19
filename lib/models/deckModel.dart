@@ -1,4 +1,3 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'deckModel.g.dart';
@@ -13,7 +12,8 @@ class DeckModel {
 
   DeckModel(this.id, this.id_user, this.name);
 
-  factory DeckModel.fromJson(Map<String, dynamic> json) => _$DeckModelFromJson(json);
+  factory DeckModel.fromJson(Map<String, dynamic> json) =>
+      _$DeckModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeckModelToJson(this);
 }

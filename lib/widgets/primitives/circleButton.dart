@@ -1,16 +1,13 @@
 part of 'primitives.dart';
 
-void doNothing() {
-}
+void doNothing() {}
 
 class CircleButton extends StatelessWidget {
-  const CircleButton(
-      {
-        this.icon = Icons.add,
-        required this.onPressed,
-        super.key,
-      }
-      );
+  const CircleButton({
+    this.icon = Icons.add,
+    required this.onPressed,
+    super.key,
+  });
 
   final Function() onPressed;
   final IconData icon;
@@ -26,7 +23,5 @@ class CircleButton extends StatelessWidget {
         icon,
         size: 35.0,
         color: Colors.white,
-      )
-  );
-
+      ));
 }

@@ -1,7 +1,6 @@
 part of 'primitives.dart';
 
-class DeckProps {
-}
+class DeckProps {}
 
 class DeckBox extends StatelessWidget {
   final DeckModel props;
@@ -15,17 +14,12 @@ class DeckBox extends StatelessWidget {
       height: 140.0,
       child: ElevatedButton(
         onPressed: () async {
-
           // Go to deck's info screen
           await replaceRoute(context, const EditSetScreen());
-
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: lightColorScheme.tertiary,
-            textStyle: const TextStyle(
-                fontSize: 24
-            )
-        ),
+            textStyle: const TextStyle(fontSize: 24)),
         child: Text(props.name),
       ),
     );

@@ -1,7 +1,6 @@
 part of 'routes.dart';
 
 class DeckListScreen extends StatelessWidget {
-
   const DeckListScreen({super.key});
 
   @override
@@ -9,6 +8,5 @@ class DeckListScreen extends StatelessWidget {
     return const CustomScaffold(
       child: DeckListPage(),
     );
-
   }
 }

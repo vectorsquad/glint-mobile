@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
           title: 'Glint',
           theme: lightMode,
           home: const ExhaustiveLoginRoute(),
-        )
-    );
+        ));
   }
 }

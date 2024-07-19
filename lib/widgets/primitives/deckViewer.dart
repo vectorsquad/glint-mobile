@@ -6,36 +6,37 @@ class DeckListViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Consumer<DeckListNotifier>(
       builder: (context, model, child) => FutureBuilder(
-        future: model.deckList,
-        builder: (context, snapshot) {
+            future: model.deckList,
+            builder: (context, snapshot) {
+              final isWaiting =
+                  snapshot.connectionState == ConnectionState.waiting;
+              final isActive =
+                  snapshot.connectionState == ConnectionState.active;
 
-          final isWaiting = snapshot.connectionState == ConnectionState.waiting;
-          final isActive = snapshot.connectionState == ConnectionState.active;
+              if (isActive || isWaiting) {
+                return const CircularProgressIndicator(
+                    backgroundColor: Colors.green);
+              }
 
-          if(isActive || isWaiting) {
-            return const CircularProgressIndicator(backgroundColor: Colors.green);
-          }
+              if (snapshot.connectionState == ConnectionState.none) {
+                final ok = snapshot.data?.ok;
+                if (ok == null) {
+                  return const CircularProgressIndicator(
+                      backgroundColor: Colors.green);
+                }
 
-          if(snapshot.connectionState == ConnectionState.none) {
+                final List<Widget> deckCardBoxes = [];
 
-            final ok = snapshot.data?.ok;
-            if(ok == null) {
-              return const CircularProgressIndicator(backgroundColor: Colors.green);
-            }
+                for (final deckProp in ok.decks) {
+                  deckCardBoxes.add(DeckBox(deckProp));
+                }
 
-            final List<Widget> deckCardBoxes = [];
+                return Column(children: deckCardBoxes);
+              }
 
-            for(final deckProp in ok.decks) {
-              deckCardBoxes.add(DeckBox(deckProp));
-            }
-
-            return Column(children: deckCardBoxes);
-          }
-
-          return const CircularProgressIndicator(backgroundColor: Colors.green,);
-
-        },
-      )
-  );
-
+              return const CircularProgressIndicator(
+                backgroundColor: Colors.green,
+              );
+            },
+          ));
 }

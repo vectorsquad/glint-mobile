@@ -16,7 +16,7 @@ class Val<Ok, Other> {
 
   Other some(Function(Ok) callback) {
     final okCopy = ok;
-    if(okCopy != null) {
+    if (okCopy != null) {
       callback(okCopy);
     }
     return other;
@@ -24,7 +24,7 @@ class Val<Ok, Other> {
 
   none(Function(Other) callback) {
     final otherCopy = other;
-    if(otherCopy != null) {
+    if (otherCopy != null) {
       callback(otherCopy);
     }
   }
@@ -32,9 +32,8 @@ class Val<Ok, Other> {
 
 /// True if form is valid, false otherwise.
 bool validForm(GlobalKey<FormState> form) {
-
   final currentState = form.currentState;
-  if(currentState != null && currentState.validate()) {
+  if (currentState != null && currentState.validate()) {
     return true;
   }
 
@@ -45,20 +44,17 @@ typedef ValResponse = Val<Response<dynamic>, String>;
 
 /// Send an HTTP request, return possible success and error response.
 Future<ValResponse> req(Future<Response<dynamic>> Function() callback) async {
-
   final val = Val<Response<dynamic>, String>("");
 
   try {
     // Successful response
     val.ok = await callback();
     return val;
-
   } on DioException catch (e) {
-
     final resp = e.response;
 
     // No response means server error.
-    if(resp == null) {
+    if (resp == null) {
       val.other = "Could not reach server.";
       return val;
     }
@@ -66,10 +62,10 @@ Future<ValResponse> req(Future<Response<dynamic>> Function() callback) async {
     final data = resp.data;
 
     // Payload having a message means custom error happened.
-    if(data is Map<String, dynamic> && data.containsKey("message")) {
+    if (data is Map<String, dynamic> && data.containsKey("message")) {
       val.other = data["message"];
 
-      if(data.containsKey("details") ) {
+      if (data.containsKey("details")) {
         val.other += jsonEncode(data["details"]);
       }
 
@@ -78,12 +74,10 @@ Future<ValResponse> req(Future<Response<dynamic>> Function() callback) async {
 
     val.other = "Server error, no reason provided";
     return val;
-
   } catch (e) {
     val.other = e.toString();
     return val;
   }
-
 }
 
 // Navigate to next route
@@ -95,45 +89,33 @@ Future<void> replaceRoute(BuildContext context, Widget widget) async {
 }
 
 Future<void> pushRoute(BuildContext context, Widget widget) async {
-  await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (ctx) => widget
-      )
-  );
+  await Navigator.push(context, MaterialPageRoute(builder: (ctx) => widget));
 }
 
 Future<void> replaceRouteAll(BuildContext context, Widget widget) async {
   await Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-          builder: (ctx) => widget
-      ),
-      (route) => false
-  );
+      context, MaterialPageRoute(builder: (ctx) => widget), (route) => false);
 }
 
 // Construct new list based off of existing list with item inserted in-between.
 between<T>(T spacer, List<T> existing) {
   final newList = <T>[];
 
-  for(var i = 0; i < existing.length; i++) {
+  for (var i = 0; i < existing.length; i++) {
     newList.add(existing[i]);
-    if(i + 1 < existing.length) {
+    if (i + 1 < existing.length) {
       newList.add(spacer);
     }
   }
 
   return newList;
-
 }
 
 typedef HttpProps = Map<String, dynamic>;
 
 Future<JWT?> getUserId() async {
-
   final ck = getSerializableCookie("auth");
-  if(ck == null) {
+  if (ck == null) {
     return null;
   }
 

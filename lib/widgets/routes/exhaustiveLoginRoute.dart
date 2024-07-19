@@ -14,8 +14,7 @@ class ExhaustiveLoginRoute extends StatelessWidget {
         child: FutureBuilder(
             future: setupDio(),
             builder: (context, snapshot) {
-
-              if(snapshot.connectionState != ConnectionState.done) {
+              if (snapshot.connectionState != ConnectionState.done) {
                 return const CircularProgressIndicator();
               }
 
@@ -35,11 +34,7 @@ class ExhaustiveLoginRoute extends StatelessWidget {
 
                     // Only here if sign-in request is not finished.
                     return const CircularProgressIndicator();
-                  }
-              );
-            }
-        )
-    );
+                  });
+            }));
   }
-
 }

@@ -13,7 +13,6 @@ var dio = Dio();
 
 // Setup Dio-based HTTP fetcher
 setupDio() async {
-
   // Get reference to and create app's cache dir
   var appCacheDir = await path_provider.getApplicationCacheDirectory();
   await appCacheDir.create(recursive: true);
@@ -39,20 +38,19 @@ abstract class ApiResponseError {
 nonExistentCookie(String name) => "could not find cookie with name `$name`";
 
 // Get first cookie that matches name
-SerializableCookie? getSerializableCookie(String name ) {
-
+SerializableCookie? getSerializableCookie(String name) {
   // Return null early if no cookies exist for API host
   log(jsonEncode(cj.hostCookies));
   final cookiesHost = cj.hostCookies[hostname];
-  if(cookiesHost == null) {
+  if (cookiesHost == null) {
     log("no cookies exist for API host");
     return null;
   }
 
   // Return cookie early if exist in even one of the cookie paths
-  for(final cookiesPath in cookiesHost.values) {
-    for(final cookieEntry in cookiesPath.entries) {
-      if(cookieEntry.key == name) {
+  for (final cookiesPath in cookiesHost.values) {
+    for (final cookieEntry in cookiesPath.entries) {
+      if (cookieEntry.key == name) {
         return cookieEntry.value;
       }
     }
@@ -61,5 +59,4 @@ SerializableCookie? getSerializableCookie(String name ) {
   // Only here if no cookie with name exists in any paths for API hostname
   log(nonExistentCookie(name));
   return null;
-
 }

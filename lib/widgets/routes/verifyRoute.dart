@@ -5,7 +5,6 @@ class VerifyRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final _formSignInKey = GlobalKey<FormState>();
     final params = HashMap<String, dynamic>();
 
@@ -61,8 +60,7 @@ class VerifyRoute extends StatelessWidget {
                       TextFormFieldC(
                           name: "Code",
                           onChanged: newParamSetter(params, "code"),
-                          validator: codeValidator
-                      ),
+                          validator: codeValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
@@ -70,47 +68,42 @@ class VerifyRoute extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                             onPressed: () async {
-
                               // Return early if form is not valid.
-                              if(!validForm(_formSignInKey)) {
+                              if (!validForm(_formSignInKey)) {
                                 return;
                               }
 
                               final code = params["code"];
-                              if(code == null) {
+                              if (code == null) {
                                 await QuickAlert.show(
                                     context: context,
                                     type: QuickAlertType.error,
-                                    text: "Cannot retrieve typed verification code."
-                                );
+                                    text:
+                                        "Cannot retrieve typed verification code.");
                                 return;
                               }
 
                               // Submit form.
-                              final Val(:ok, :other) = await submitVerification(code);
+                              final Val(:ok, :other) =
+                                  await submitVerification(code);
 
                               // Alert user if no "ok" value and return early.
-                              if(ok == null) {
+                              if (ok == null) {
                                 await QuickAlert.show(
                                     context: context,
                                     type: QuickAlertType.error,
-                                    text: other
-                                );
+                                    text: other);
                                 return;
                               }
 
                               // Navigate to list of decks.
-                              await replaceRoute(context, const DeckListScreen());
-
+                              await replaceRoute(
+                                  context, const DeckListScreen());
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: lightColorScheme.primary,
-                                textStyle: const TextStyle(
-                                    fontSize: 18
-                                )
-                            ),
-                            child: const Text('Submit')
-                        ),
+                                textStyle: const TextStyle(fontSize: 18)),
+                            child: const Text('Submit')),
                       ),
                     ],
                   ),

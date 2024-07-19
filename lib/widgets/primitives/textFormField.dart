@@ -1,25 +1,20 @@
 part of 'primitives.dart';
 
 class TextFormFieldC extends StatelessWidget {
-
   final String name;
   final Function(String) onChanged;
   final ValidatorFunc validator;
   final bool obscure;
 
   const TextFormFieldC(
-      {
-        required this.name,
-        required this.onChanged,
-        required this.validator,
-        super.key,
-        this.obscure = false
-      }
-      );
+      {required this.name,
+      required this.onChanged,
+      required this.validator,
+      super.key,
+      this.obscure = false});
 
   @override
   build(BuildContext context) {
-
     return TextFormField(
       obscureText: obscure,
       validator: validator,
@@ -44,8 +39,5 @@ class TextFormFieldC extends StatelessWidget {
         ),
       ),
     );
-
-
   }
-
 }

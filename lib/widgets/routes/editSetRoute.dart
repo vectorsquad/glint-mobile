@@ -105,7 +105,8 @@ class EditSetScreen extends StatelessWidget {
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
                         ),
                       ),
                       const SizedBox(
@@ -135,7 +136,8 @@ class EditSetScreen extends StatelessWidget {
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
                         ),
                       ),
                       const SizedBox(
@@ -173,7 +175,8 @@ class EditSetScreen extends StatelessWidget {
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
                         ),
                       ),
                       const SizedBox(
@@ -203,7 +206,8 @@ class EditSetScreen extends StatelessWidget {
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
                         ),
                       ),
                       const SizedBox(
@@ -219,8 +223,7 @@ class EditSetScreen extends StatelessWidget {
                             Icons.add,
                             size: 35.0,
                             color: Colors.white,
-                          )
-                      ),
+                          )),
                       const SizedBox(
                         height: 30.0,
                       ),
@@ -233,10 +236,7 @@ class EditSetScreen extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: lightColorScheme.tertiary,
-                              textStyle: const TextStyle(
-                                  fontSize: 24
-                              )
-                          ),
+                              textStyle: const TextStyle(fontSize: 24)),
                           child: const Text('Save Set'),
                         ),
                       ),
@@ -248,11 +248,11 @@ class EditSetScreen extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
+                              Navigator.push(
+                                  context,
                                   MaterialPageRoute(
                                     builder: (e) => const SelectedSetRoute(),
-                                  )
-                              );
+                                  ));
                             },
                             child: Text(
                               'Back to set',
@@ -262,7 +262,6 @@ class EditSetScreen extends StatelessWidget {
                                 color: lightColorScheme.primary,
                               ),
                             ),
-
                           ),
                         ],
                       ),

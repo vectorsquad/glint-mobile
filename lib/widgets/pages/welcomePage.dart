@@ -26,8 +26,7 @@ class WelcomePage extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           )),
                       TextSpan(
-                          text:
-                          '\nA tool kit to enhance learning',
+                          text: '\nA tool kit to enhance learning',
                           style: TextStyle(
                             fontSize: 20,
                             // height: 0,
@@ -66,5 +65,4 @@ class WelcomePage extends StatelessWidget {
       ],
     );
   }
-
 }

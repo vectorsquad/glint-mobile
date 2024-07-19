@@ -54,10 +54,7 @@ class SelectedSetRoute extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: lightColorScheme.tertiary,
-                              textStyle: const TextStyle(
-                                  fontSize: 24
-                              )
-                          ),
+                              textStyle: const TextStyle(fontSize: 24)),
                           child: const Text('Card 1'),
                         ),
                       ),
@@ -76,24 +73,20 @@ class SelectedSetRoute extends StatelessWidget {
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: lightColorScheme.primary,
-                                      textStyle: const TextStyle(
-                                          fontSize: 14
-                                      )
-                                  ),
+                                      textStyle: const TextStyle(fontSize: 14)),
                                   child: const Icon(
                                     Icons.chevron_left,
                                     size: 35.0,
                                     color: Colors.white,
-                                  )
-                              ),
+                                  )),
                             ),
                             RawMaterialButton(
                                 onPressed: () {
-                                  Navigator.push(context,
+                                  Navigator.push(
+                                      context,
                                       MaterialPageRoute(
                                         builder: (e) => const EditSetScreen(),
-                                      )
-                                  );
+                                      ));
                                 },
                                 elevation: 2.0,
                                 fillColor: lightColorScheme.primary,
@@ -103,8 +96,7 @@ class SelectedSetRoute extends StatelessWidget {
                                   Icons.edit,
                                   size: 40.0,
                                   color: Colors.white,
-                                )
-                            ),
+                                )),
                             SizedBox(
                               width: 100.0,
                               height: 70.0,
@@ -112,19 +104,14 @@ class SelectedSetRoute extends StatelessWidget {
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: lightColorScheme.primary,
-                                      textStyle: const TextStyle(
-                                          fontSize: 14
-                                      )
-                                  ),
+                                      textStyle: const TextStyle(fontSize: 14)),
                                   child: const Icon(
                                     Icons.chevron_right,
                                     size: 35.0,
                                     color: Colors.white,
-                                  )
-                              ),
+                                  )),
                             ),
-                          ]
-                      ),
+                          ]),
                       const SizedBox(
                         height: 30.0,
                       ),
@@ -133,11 +120,11 @@ class SelectedSetRoute extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
+                              Navigator.push(
+                                  context,
                                   MaterialPageRoute(
                                     builder: (e) => const Text("lmao"),
-                                  )
-                              );
+                                  ));
                             },
                             child: Text(
                               'Start studying',
@@ -147,7 +134,6 @@ class SelectedSetRoute extends StatelessWidget {
                                 color: lightColorScheme.primary,
                               ),
                             ),
-
                           ),
                         ],
                       ),
@@ -159,11 +145,11 @@ class SelectedSetRoute extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
+                              Navigator.push(
+                                  context,
                                   MaterialPageRoute(
                                     builder: (e) => const Text("lmao"),
-                                  )
-                              );
+                                  ));
                             },
                             child: Text(
                               'Back to sets',
@@ -173,7 +159,6 @@ class SelectedSetRoute extends StatelessWidget {
                                 color: lightColorScheme.primary,
                               ),
                             ),
-
                           ),
                         ],
                       ),
