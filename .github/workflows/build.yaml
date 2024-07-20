@@ -41,6 +41,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: Upload Artifacts
         with:
-          name: artifacts-${{ env.GITHUB_SHA }}
+          name: artifacts-${{ github.sha }}
           path: |
             ${{ env.android_release_path }}
