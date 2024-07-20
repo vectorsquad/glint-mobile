@@ -13,8 +13,8 @@ class DeckListViewer extends StatelessWidget {
             future: model.deckList,
             builder: (context, snapshot) {
 
-              final isWaiting = isState(snapshot, ConnectionState.waiting);
-              final isActive = isState(snapshot, ConnectionState.active);
+              // final isWaiting = isState(snapshot, ConnectionState.waiting);
+              // final isActive = isState(snapshot, ConnectionState.active);
               final isNone = isState(snapshot, ConnectionState.none);
 
               if(isNone) {
