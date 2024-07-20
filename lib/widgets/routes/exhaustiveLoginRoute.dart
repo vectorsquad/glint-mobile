@@ -1,10 +1,5 @@
 part of 'routes.dart';
 
-void submitSignInFirstRun() async {
-  setupDio();
-  submitSignin({});
-}
-
 class ExhaustiveLoginRoute extends StatelessWidget {
   const ExhaustiveLoginRoute({super.key});
 

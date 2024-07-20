@@ -1,7 +1,9 @@
 part of 'routes.dart';
 
 class EditSetScreen extends StatelessWidget {
-  const EditSetScreen({super.key});
+  final DeckModel props;
+
+  const EditSetScreen({required this.props, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class EditSetScreen extends StatelessWidget {
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Set Name'),
+                          label: Text(props.name),
                           hintStyle: const TextStyle(
                             color: Colors.black26,
                           ),
@@ -251,7 +253,9 @@ class EditSetScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (e) => const SelectedSetRoute(),
+                                    builder: (e) => SelectedSetRoute(
+                                        props: props
+                                    ),
                                   ));
                             },
                             child: Text(

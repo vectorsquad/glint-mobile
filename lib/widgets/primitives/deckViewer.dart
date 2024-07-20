@@ -24,7 +24,7 @@ class DeckListViewer extends StatelessWidget {
               final data = snapshot.data;
 
               // Indicate if busy retrieving data/current data is null
-              if (isWaiting || isActive || data == null) {
+              if (snapshot.connectionState != ConnectionState.done || data == null) {
                 return const CircularProgressIndicator(
                     backgroundColor: Colors.green);
               }

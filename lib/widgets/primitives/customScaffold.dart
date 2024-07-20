@@ -1,12 +1,12 @@
 part of 'primitives.dart';
 
 class CustomScaffold extends StatelessWidget {
-  const CustomScaffold({super.key, this.child});
-  final Widget? child;
+  const CustomScaffold({super.key, required this.child});
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBody: true,
       body: Stack(
         children: [
           Image.asset(
@@ -15,7 +15,7 @@ class CustomScaffold extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
           ),
-          child!,
+          child,
         ],
       ),
     );

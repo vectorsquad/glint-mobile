@@ -5,15 +5,31 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(
-                color: Colors.green,
-              )
+              RichText(
+                textAlign: TextAlign.center,
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                        text: 'Logging In...',
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.w600,
+                        ))
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const CircularProgressIndicator(
+                color: Colors.white,
+              ),
             ],
           )
         ]
