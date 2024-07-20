@@ -1,9 +1,7 @@
-name: Flutter CI
+name: Build
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  push
 
 env:
   android_release_path: build/app/outputs/apk/release/app-release.apk
@@ -14,10 +12,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: heinrichreimer/action-github-changelog-generator@v2.3
-        name: Generate Changelog
-        id: generate_changelog
-
       - uses: actions/checkout@v4
         name: Clone Repo
 
@@ -32,6 +26,8 @@ jobs:
         name: Setup Flutter
         with:
           channel: stable
+          cache: true
+          cache-key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
 
       - run: flutter pub get
         name: Get Dependencies
@@ -40,11 +36,11 @@ jobs:
         name: Check Formatting
 
       - run: flutter build apk
-        name: Build
+        name: Build APK
 
-      - uses: softprops/action-gh-release@v2
-        name: Create Release
+      - uses: actions/upload-artifact@v4
+        name: Upload Artifacts
         with:
-          body: ${{ steps.generate_changelog.outputs.changelog }}
-          files: |
+          name: artifacts-${{ env.GITHUB_SHA }}
+          path: |
             ${{ env.android_release_path }}
