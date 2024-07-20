@@ -1,5 +1,9 @@
 part of 'primitives.dart';
 
+bool isState(AsyncSnapshot snapshot, ConnectionState connState) {
+  return snapshot.connectionState == connState;
+}
+
 class DeckListViewer extends StatelessWidget {
   const DeckListViewer({super.key});
 
@@ -8,40 +12,35 @@ class DeckListViewer extends StatelessWidget {
       builder: (context, model, child) => FutureBuilder(
             future: model.deckList,
             builder: (context, snapshot) {
-              final isWaiting =
-                  snapshot.connectionState == ConnectionState.waiting;
-              final isActive =
-                  snapshot.connectionState == ConnectionState.active;
 
-              if (isActive || isWaiting) {
-                return const CircularProgressIndicator(
-                    backgroundColor: Colors.green);
+              final isWaiting = isState(snapshot, ConnectionState.waiting);
+              final isActive = isState(snapshot, ConnectionState.active);
+              final isNone = isState(snapshot, ConnectionState.none);
+
+              if(isNone) {
+                return const Text("No Decks Created");
               }
 
               final data = snapshot.data;
 
-              if (snapshot.connectionState == ConnectionState.done &&
-                  data != null) {
-                final Val(:ok, :other) = data;
-
-                if (ok == null) {
-                  QuickAlert.show(
-                      context: context,
-                      type: QuickAlertType.error,
-                      text: other);
-                  return const Text("No Decks Created");
-                }
-
-                final List<Widget> deckCardBoxes = [];
-
-                for (final deckProp in ok.decks) {
-                  deckCardBoxes.add(DeckBox(deckProp));
-                }
-
-                return Column(children: deckCardBoxes);
+              // Indicate if busy retrieving data/current data is null
+              if (isWaiting || isActive || data == null) {
+                return const CircularProgressIndicator(
+                    backgroundColor: Colors.green);
               }
 
-              return const Text("No Decks Created");
+              final Val(:ok, :other) = data;
+              if (ok == null) {
+                return Text("Error Retrieving List Of Decks:\n$other");
+              }
+
+              final List<Widget> deckCardBoxes = [];
+
+              for (final deckProp in ok.decks) {
+                deckCardBoxes.add(DeckBox(deckProp));
+              }
+
+              return Column(children: deckCardBoxes);
             },
-          ));
+      ));
 }
