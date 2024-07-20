@@ -1,7 +1,6 @@
 part of 'routes.dart';
 
 class SelectedSetRoute extends StatelessWidget {
-
   final DeckModel props;
 
   const SelectedSetRoute({required this.props, super.key});
@@ -88,7 +87,8 @@ class SelectedSetRoute extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (e) => EditSetScreen(props: props),
+                                        builder: (e) =>
+                                            EditSetScreen(props: props),
                                       ));
                                 },
                                 elevation: 2.0,

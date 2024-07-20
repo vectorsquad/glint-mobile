@@ -2,7 +2,11 @@ part of 'primitives.dart';
 
 class WelcomeButton extends StatelessWidget {
   const WelcomeButton(
-      {super.key, required this.buttonText, this.onTap, this.color, this.textColor});
+      {super.key,
+      required this.buttonText,
+      this.onTap,
+      this.color,
+      this.textColor});
   final String buttonText;
   final Widget? onTap;
   final Color? color;

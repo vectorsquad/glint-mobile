@@ -253,9 +253,8 @@ class EditSetScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (e) => SelectedSetRoute(
-                                        props: props
-                                    ),
+                                    builder: (e) =>
+                                        SelectedSetRoute(props: props),
                                   ));
                             },
                             child: Text(

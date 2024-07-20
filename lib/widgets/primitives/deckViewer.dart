@@ -12,19 +12,19 @@ class DeckListViewer extends StatelessWidget {
       builder: (context, model, child) => FutureBuilder(
             future: model.deckList,
             builder: (context, snapshot) {
-
               // final isWaiting = isState(snapshot, ConnectionState.waiting);
               // final isActive = isState(snapshot, ConnectionState.active);
               final isNone = isState(snapshot, ConnectionState.none);
 
-              if(isNone) {
+              if (isNone) {
                 return const Text("No Decks Created");
               }
 
               final data = snapshot.data;
 
               // Indicate if busy retrieving data/current data is null
-              if (snapshot.connectionState != ConnectionState.done || data == null) {
+              if (snapshot.connectionState != ConnectionState.done ||
+                  data == null) {
                 return const CircularProgressIndicator(
                     backgroundColor: Colors.green);
               }
@@ -42,5 +42,5 @@ class DeckListViewer extends StatelessWidget {
 
               return Column(children: deckCardBoxes);
             },
-      ));
+          ));
 }

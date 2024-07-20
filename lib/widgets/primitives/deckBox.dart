@@ -15,12 +15,7 @@ class DeckBox extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           // Go to deck's info screen
-          await pushRoute(
-              context,
-              EditSetScreen(
-                  props: props
-              )
-          );
+          await pushRoute(context, EditSetScreen(props: props));
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: lightColorScheme.tertiary,

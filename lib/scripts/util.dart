@@ -84,28 +84,17 @@ Future<ValResponse> req(Future<Response<dynamic>> Function() callback) async {
 Future<void> replaceRoute(BuildContext context, Widget widget) async {
   await Navigator.pushReplacement(
     context,
-    MaterialPageRoute(
-        builder: (ctx) => widget
-    ),
+    MaterialPageRoute(builder: (ctx) => widget),
   );
 }
 
 Future<void> pushRoute(BuildContext context, Widget widget) async {
-  await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (ctx) => widget
-      )
-  );
+  await Navigator.push(context, MaterialPageRoute(builder: (ctx) => widget));
 }
 
 Future<void> replaceRouteAll(BuildContext context, Widget widget) async {
   await Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-          builder: (ctx) => widget),
-          (route) => false
-  );
+      context, MaterialPageRoute(builder: (ctx) => widget), (route) => false);
 }
 
 // Construct new list based off of existing list with item inserted in-between.
