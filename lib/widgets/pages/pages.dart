@@ -15,3 +15,4 @@ import '../../scripts/requests.dart';
 part 'deckListPage.dart';
 part 'signInPage.dart';
 part 'welcomePage.dart';
+part 'loadingPage.dart';

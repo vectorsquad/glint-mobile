@@ -15,7 +15,7 @@ class ExhaustiveLoginRoute extends StatelessWidget {
             future: setupDio(),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
-                return const CircularProgressIndicator();
+                return const LoadingPage();
               }
 
               return FutureBuilder(
@@ -28,12 +28,12 @@ class ExhaustiveLoginRoute extends StatelessWidget {
                         return const DeckListPage();
                       }
 
-                      // Only here if unable to sign-in.
+                      // Only here if unable to sign-in with JWT authentication.
                       return const WelcomePage();
                     }
 
                     // Only here if sign-in request is not finished.
-                    return const CircularProgressIndicator();
+                    return const LoadingPage();
                   });
             }));
   }

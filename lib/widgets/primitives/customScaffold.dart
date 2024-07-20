@@ -6,11 +6,6 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
@@ -20,9 +15,7 @@ class CustomScaffold extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
           ),
-          SafeArea(
-            child: child!,
-          ),
+          child!,
         ],
       ),
     );
