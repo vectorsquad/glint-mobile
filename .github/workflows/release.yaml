@@ -6,22 +6,17 @@ on:
       - v*.*.*
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: mathiasvr/command-output@v2.0.0
-        name: Get Commit From Tag
-        id: tagged_commit
-        with:
-          run: git rev-list -n 1 ${{ github.ref_name }}
 
       - uses: dawidd6/action-download-artifact@v6
         name: Download Artifacts
         with:
           workflow: build.yaml
-          commit: artifacts-${{ steps.tagged_commit.outputs.stdout }}
+          commit: artifacts-${{ github.sha }}
 
       - uses: heinrichreimer/action-github-changelog-generator@v2.3
         name: Generate Changelog
