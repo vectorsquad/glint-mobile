@@ -28,7 +28,7 @@ class DeckListPage extends StatelessWidget {
                 CircleButton(
                   onPressed: () => pushRoute(
                       context,
-                      AddDeckRoute()
+                      const AddDeckRoute()
                   ),
                 ),
                 const SizedBox(

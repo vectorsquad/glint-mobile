@@ -24,6 +24,10 @@ Future<Val<List<DeckModel>, String>> getDeckList() async {
 class DeckListNotifier extends ChangeNotifier {
   List<DeckModel> _cache = [];
 
+  DeckListNotifier() {
+    refreshDeckList();
+  }
+
   UnmodifiableListView<DeckModel> get cached => UnmodifiableListView(_cache);
 
   void refreshDeckList() async {

@@ -16,12 +16,8 @@ class DeckListViewer extends StatelessWidget {
 
         // Add spacer if more items
         if(i+1 < model.cached.length) {
-          deckCardBoxes.add(
-              const SizedBox(
-                  width: 20,
-                  height: 20
-              )
-          );
+          const spacer = SizedBox(width: 20, height: 20);
+          deckCardBoxes.add(spacer);
         }
 
       }
