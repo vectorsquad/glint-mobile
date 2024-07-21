@@ -4,8 +4,10 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup/models/deckModel.dart';
+import 'package:login_signup/notifiers/notifiers.dart';
 import 'package:login_signup/widgets/primitives/primitives.dart';
 import 'package:login_signup/widgets/routes/routes.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
@@ -18,3 +20,5 @@ part 'deckListPage.dart';
 part 'signInPage.dart';
 part 'welcomePage.dart';
 part 'loadingPage.dart';
+part 'selectedSetPage.dart';
+part 'editDeckPage.dart';

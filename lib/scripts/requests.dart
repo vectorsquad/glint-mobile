@@ -17,8 +17,12 @@ ValRespFuture submitVerification(String code) {
   return req(() => dio.post(apiUrl("verify"), queryParameters: {"code": code}));
 }
 
-ValRespFuture getDecks() {
+ValRespFuture getDeckList() {
   return req(() => dio.post(apiUrl("findDeck")));
+}
+
+ValRespFuture getCardList(Map<String, dynamic> params) {
+  return req(() => dio.post(apiUrl("find"), data: params));
 }
 
 // Future<Val<T, String>> Function(RequestParams) requestBuilder<T>(Future<Response<dynamic>> Function() callback) {

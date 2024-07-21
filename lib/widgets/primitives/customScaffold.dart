@@ -15,7 +15,7 @@ class CustomScaffold extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
           ),
-          child,
+          Expanded(child: child),
         ],
       ),
     );

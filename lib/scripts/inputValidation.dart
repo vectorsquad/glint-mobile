@@ -92,8 +92,18 @@ ValidatorFunc createValidator(String emptyMessage,
   return newValidator;
 }
 
+Validator missingLetterValidator = Validator(util.str("Missing Letter"), hasLetter);
+
 final deckNameValidator = createValidator(
-    "Set Name", [Validator(util.str("Missing Letter"), hasLetter)]);
+    "Set Name", [missingLetterValidator]);
+
+final flashCardFrontValidator = createValidator("Front Text", [
+  missingLetterValidator
+]);
+
+final flashCardBackValidator = createValidator("Back Text", [
+  missingLetterValidator
+]);
 
 final codeValidator = createValidator("Verification Code");
 

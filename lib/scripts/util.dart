@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/material.dart';
+import 'package:login_signup/scripts/requests.dart';
 
 import 'global.dart';
 
@@ -127,3 +128,27 @@ Function(String) newParamSetter(Map<String, dynamic> params, String key) {
 }
 
 Future<void> deleteAuthCache() => cj.delete(apiUri("login"));
+
+Future<Val<List<T>, String>> getList<T>(
+    ValRespFuture Function() fetcher,
+    T Function(Map<String, dynamic>) fromJson
+    ) async {
+  final listVal = Val<List<T>, String>("");
+
+  final Val(:ok, :other) = await fetcher();
+  if (ok == null) {
+    listVal.other = other;
+    return listVal;
+  }
+
+  Iterable data = ok.data;
+  List<T> concreteList = [];
+
+  for (final deckObj in data) {
+    concreteList.add(fromJson(deckObj));
+  }
+
+  listVal.ok = concreteList;
+
+  return listVal;
+}

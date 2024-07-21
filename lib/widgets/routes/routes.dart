@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:login_signup/models/deckListModel.dart';
 import 'package:login_signup/notifiers/notifiers.dart';
 import 'package:login_signup/scripts/global.dart';
 import 'package:login_signup/widgets/pages/pages.dart';
@@ -20,7 +19,6 @@ import '../../theme/theme.dart';
 
 part 'aboutUsRoute.dart';
 part 'deckListRoute.dart';
-part 'editSetRoute.dart';
 part 'exhaustiveLoginRoute.dart';
 part 'selectedSetRoute.dart';
 part 'signInRoute.dart';
