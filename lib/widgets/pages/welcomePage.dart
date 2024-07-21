@@ -14,27 +14,53 @@ class WelcomePage extends StatelessWidget {
                 vertical: 0,
                 horizontal: 40.0,
               ),
-              child: Center(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                          text: 'Glint.\n',
-                          style: TextStyle(
-                            fontSize: 45.0,
-                            fontWeight: FontWeight.w600,
-                          )),
-                      TextSpan(
-                          text: '\nA tool kit to enhance learning',
-                          style: TextStyle(
-                            fontSize: 20,
-                            // height: 0,
-                          ))
-                    ],
-                  ),
-                ),
-              ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                              text: 'Glint.\n',
+                              style: TextStyle(
+                                fontSize: 45.0,
+                                fontWeight: FontWeight.w600,
+                              )),
+                          TextSpan(
+                              text: '\nA tool kit to enhance learning',
+                              style: TextStyle(
+                                fontSize: 20,
+                                // height: 0,
+                              ))
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                        onTap: () => pushRoute(
+                            context,
+                            const RouteBuilder(
+                                child: ApiUrlEditor()
+                            )
+                        ),
+                        child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              side: const BorderSide(color: Colors.white),
+                            ),
+                            child: const Icon(
+                              Icons.settings,
+                              color: Colors.white,
+                            ),
+                            onPressed: () => pushRoute(
+                                context,
+                                const RouteBuilder(child: ApiUrlEditor())
+                            )
+
+                        )
+
+                    )
+                  ],
+                )
             )),
         Flexible(
           flex: 1,

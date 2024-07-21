@@ -25,58 +25,43 @@ class EditDeckPage extends StatelessWidget {
           const SizedBox(
             height: 30.0,
           ),
-          TextFormField(
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter set name';
-              }
-              return null;
-            },
-            decoration: InputDecoration(
-              label: Text(props.name),
-              hintStyle: const TextStyle(
-                color: Colors.black26,
-              ),
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Colors.black12, // Default border color
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Colors.black12, // Default border color
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
+          TextFormFieldC(
+              name: "Set Name",
+              initialValue: props.name,
+              onChanged: newParamSetter({}, ""),
+              validator: setNameValidator
           ),
           const SizedBox(
             height: 20.0,
           ),
-          Consumer<CardListNotifier>(
-            builder: (context, model, child) {
-              final flashCardEditors = <Widget>[];
+          ChangeNotifierProvider(
+            create: (context) => CardListNotifier(),
+            child: Consumer<CardListNotifier>(
+                builder: (context, model, child) {
+                  final flashCardEditors = <Widget>[];
 
+                  for (var i = 0; i < model.cached.length; i++) {
+                    final deckProp = model.cached[i];
+                    flashCardEditors.add(
+                        FlashCardEditor(
+                          props: deckProp,
+                        )
+                    );
 
-              for (var i = 0; i < model.cached.length; i++) {
-                final deckProp = model.cached[i];
-                flashCardEditors.add(
-                    FlashCardEditor(
-                    props: deckProp,
-                )
-                );
+                    // Add spacer if more items
+                    if (i + 1 < model.cached.length) {
+                      const spacer = SizedBox(width: 20, height: 20);
+                      flashCardEditors.add(spacer);
+                    }
+                  }
 
-                // Add spacer if more items
-                if (i + 1 < model.cached.length) {
-                  const spacer = SizedBox(width: 20, height: 20);
-                  flashCardEditors.add(spacer);
+                  return Column(children: flashCardEditors);
                 }
-              }
+            ),
 
-              return Column(children: flashCardEditors);
-            }
+
           ),
+
           const SizedBox(
             height: 20.0,
           ),

@@ -38,14 +38,6 @@ class SignInPage extends StatelessWidget {
               color: lightColorScheme.shadow,
             ),
           ),
-          Text(
-            'Log in to view your flashcards.',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w900,
-              color: lightColorScheme.shadow,
-            ),
-          ),
           const SizedBox(
             height: 40.0,
           ),

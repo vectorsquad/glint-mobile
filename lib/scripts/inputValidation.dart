@@ -94,6 +94,10 @@ ValidatorFunc createValidator(String emptyMessage,
 
 Validator missingLetterValidator = Validator(util.str("Missing Letter"), hasLetter);
 
+final setNameValidator = createValidator("Set Name", [
+  missingLetterValidator
+]);
+
 final deckNameValidator = createValidator(
     "Set Name", [missingLetterValidator]);
 

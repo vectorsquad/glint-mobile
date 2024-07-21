@@ -23,10 +23,13 @@ setupDio() async {
   dio.interceptors.add(CookieManager(cj));
 }
 
-const hostname = "glint.cleanmango.com";
-const hostUrl = "https://$hostname";
-final hostUri = Uri.parse(hostUrl);
-String apiUrl(String path) => "$hostUrl/api/v1/$path";
+const glintHost = "glint.cleanmango.com";
+const glintProtocol = "https";
+
+var currentHost = glintHost;
+var currentProtocol = glintProtocol;
+
+String apiUrl(String path) => "$currentProtocol://$currentHost/api/v1/$path";
 Uri apiUri(String path) => Uri.parse(apiUrl(path));
 
 abstract class ApiResponseError {
@@ -40,7 +43,7 @@ nonExistentCookie(String name) => "could not find cookie with name `$name`";
 SerializableCookie? getSerializableCookie(String name) {
   // Return null early if no cookies exist for API host
   log(jsonEncode(cj.hostCookies));
-  final cookiesHost = cj.hostCookies[hostname];
+  final cookiesHost = cj.hostCookies[currentHost];
   if (cookiesHost == null) {
     log("no cookies exist for API host");
     return null;

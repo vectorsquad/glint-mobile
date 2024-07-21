@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => DeckListNotifier()),
+          ChangeNotifierProvider(create: (context) => ApiConfigNotifier()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
