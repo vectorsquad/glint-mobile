@@ -129,10 +129,8 @@ Function(String) newParamSetter(Map<String, dynamic> params, String key) {
 
 Future<void> deleteAuthCache() => cj.delete(apiUri("login"));
 
-Future<Val<List<T>, String>> getList<T>(
-    ValRespFuture Function() fetcher,
-    T Function(Map<String, dynamic>) fromJson
-    ) async {
+Future<Val<List<T>, String>> getList<T>(ValRespFuture Function() fetcher,
+    T Function(Map<String, dynamic>) fromJson) async {
   final listVal = Val<List<T>, String>("");
 
   final Val(:ok, :other) = await fetcher();

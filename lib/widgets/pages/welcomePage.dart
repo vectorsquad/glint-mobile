@@ -10,10 +10,10 @@ class WelcomePage extends StatelessWidget {
         Flexible(
             flex: 8,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 0,
-                horizontal: 40.0,
-              ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 0,
+                  horizontal: 40.0,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -38,11 +38,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () => pushRoute(
-                            context,
-                            const RouteBuilder(
-                                child: ApiUrlEditor()
-                            )
-                        ),
+                            context, const RouteBuilder(child: ApiUrlEditor())),
                         child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: Colors.white),
@@ -51,17 +47,10 @@ class WelcomePage extends StatelessWidget {
                               Icons.settings,
                               color: Colors.white,
                             ),
-                            onPressed: () => pushRoute(
-                                context,
-                                const RouteBuilder(child: ApiUrlEditor())
-                            )
-
-                        )
-
-                    )
+                            onPressed: () => pushRoute(context,
+                                const RouteBuilder(child: ApiUrlEditor()))))
                   ],
-                )
-            )),
+                ))),
         Flexible(
           flex: 1,
           child: Align(

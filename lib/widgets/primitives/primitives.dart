@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:login_signup/widgets/routes/routes.dart';
 import 'package:provider/provider.dart';

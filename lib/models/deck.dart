@@ -1,4 +1,3 @@
-
 part of 'models.dart';
 
 @MappableClass()
@@ -12,5 +11,4 @@ class Deck with DeckMappable {
   String name;
 
   Deck(this.id, this.userId, this.name);
-
 }

@@ -8,15 +8,12 @@ class TextFormFieldC extends StatelessWidget {
   final String? initialValue;
 
   const TextFormFieldC(
-      {
-        this.initialValue,
-        required this.name,
-        required this.onChanged,
-        required this.validator,
-        super.key,
-        this.obscure = false
-      }
-      );
+      {this.initialValue,
+      required this.name,
+      required this.onChanged,
+      required this.validator,
+      super.key,
+      this.obscure = false});
 
   @override
   build(BuildContext context) {

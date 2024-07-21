@@ -1,7 +1,6 @@
 part of 'notifiers.dart';
 
 class ApiConfigNotifier extends ChangeNotifier {
-
   bool isSecure() => currentProtocol == "https";
 
   void toggleSecure(secure) {
@@ -14,5 +13,4 @@ class ApiConfigNotifier extends ChangeNotifier {
     currentHost = s.isEmpty ? glintHost : s;
     notifyListeners();
   }
-
 }

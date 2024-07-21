@@ -1,7 +1,6 @@
 part of 'pages.dart';
 
 class EditDeckPage extends StatelessWidget {
-
   final Deck props;
 
   const EditDeckPage({required this.props, super.key});
@@ -29,39 +28,31 @@ class EditDeckPage extends StatelessWidget {
               name: "Set Name",
               initialValue: props.name,
               onChanged: newParamSetter({}, ""),
-              validator: setNameValidator
-          ),
+              validator: setNameValidator),
           const SizedBox(
             height: 20.0,
           ),
           ChangeNotifierProvider(
             create: (context) => CardListNotifier(),
-            child: Consumer<CardListNotifier>(
-                builder: (context, model, child) {
-                  final flashCardEditors = <Widget>[];
+            child: Consumer<CardListNotifier>(builder: (context, model, child) {
+              final flashCardEditors = <Widget>[];
 
-                  for (var i = 0; i < model.cached.length; i++) {
-                    final deckProp = model.cached[i];
-                    flashCardEditors.add(
-                        FlashCardEditor(
-                          props: deckProp,
-                        )
-                    );
+              for (var i = 0; i < model.cached.length; i++) {
+                final deckProp = model.cached[i];
+                flashCardEditors.add(FlashCardEditor(
+                  props: deckProp,
+                ));
 
-                    // Add spacer if more items
-                    if (i + 1 < model.cached.length) {
-                      const spacer = SizedBox(width: 20, height: 20);
-                      flashCardEditors.add(spacer);
-                    }
-                  }
-
-                  return Column(children: flashCardEditors);
+                // Add spacer if more items
+                if (i + 1 < model.cached.length) {
+                  const spacer = SizedBox(width: 20, height: 20);
+                  flashCardEditors.add(spacer);
                 }
-            ),
+              }
 
-
+              return Column(children: flashCardEditors);
+            }),
           ),
-
           const SizedBox(
             height: 20.0,
           ),
@@ -102,11 +93,7 @@ class EditDeckPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (e) => RouteBuilder(
-                              child: SelectedSetPage(
-                                  props: props
-                              )
-                          )
-                      ));
+                              child: SelectedSetPage(props: props))));
                 },
                 child: Text(
                   'Back to set',
@@ -123,7 +110,4 @@ class EditDeckPage extends StatelessWidget {
       ),
     );
   }
-
 }
-
-

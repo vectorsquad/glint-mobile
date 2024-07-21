@@ -6,8 +6,7 @@ class ApiUrlEditor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ApiConfigNotifier>(
-        builder: (context, notifier, child) =>
-            Column(
+        builder: (context, notifier, child) => Column(
               children: [
                 TextFormFieldC(
                   name: "API Host",
@@ -22,13 +21,10 @@ class ApiUrlEditor extends StatelessWidget {
                     Switch(
                       value: notifier.isSecure(),
                       onChanged: notifier.toggleSecure,
-
                     )
                   ],
                 )
               ],
-            )
-    );
+            ));
   }
-
 }
