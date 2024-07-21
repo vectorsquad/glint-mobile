@@ -31,7 +31,7 @@ class DeckListNotifier extends ChangeNotifier {
   UnmodifiableListView<DeckModel> get cached => UnmodifiableListView(_cache);
 
   void refreshDeckList() async {
-    final Val(:ok, :other) = await getDeckList();
+    final Val(:ok) = await getDeckList();
     if (ok == null) {
       return;
     }

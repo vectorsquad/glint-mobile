@@ -1,8 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:dio/dio.dart';
-import 'package:login_signup/models/deckModel.dart';
 import 'package:login_signup/scripts/util.dart';
 
 import 'global.dart';
