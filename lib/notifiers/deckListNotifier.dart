@@ -1,30 +1,38 @@
 part of 'notifiers.dart';
 
-Future<Val<DeckListModel, String>> getDeckList() async {
-  final deckListVal = Val<DeckListModel, String>("");
+Future<Val<List<DeckModel>, String>> getDeckList() async {
+  final deckListVal = Val<List<DeckModel>, String>("");
 
   final Val(:ok, :other) = await getDecks();
   if (ok == null) {
-    log(other);
     deckListVal.other = other;
     return deckListVal;
   }
 
-  deckListVal.ok = DeckListModel.fromJson(ok.data);
+  Iterable data = jsonDecode(ok.data);
+  List<DeckModel> deckList = [];
 
-  final lmao = deckListVal.ok?.decks;
-  if (lmao != null) {
-    log(jsonEncode(lmao));
+  for(final deckObj in data) {
+    deckList.add(DeckModel.fromJson(deckObj));
   }
+
+  deckListVal.ok = deckList;
 
   return deckListVal;
 }
 
 class DeckListNotifier extends ChangeNotifier {
-  var deckList = getDeckList();
+  List<DeckModel> _cache = [];
 
-  void refreshDeckList() {
-    deckList = getDeckList();
+  UnmodifiableListView<DeckModel> get cached => UnmodifiableListView(_cache);
+
+  void refreshDeckList() async {
+    final Val(:ok, :other) = await getDeckList();
+    if(ok == null) {
+      return;
+    }
+
+    _cache = ok;
     notifyListeners();
   }
 }

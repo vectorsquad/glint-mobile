@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_signup/models/deckModel.dart';
 import 'package:login_signup/widgets/primitives/primitives.dart';
 import 'package:login_signup/widgets/routes/routes.dart';
 import 'package:quickalert/models/quickalert_type.dart';

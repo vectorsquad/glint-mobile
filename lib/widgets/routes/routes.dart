@@ -1,9 +1,14 @@
 import 'dart:collection';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:login_signup/models/deckListModel.dart';
+import 'package:login_signup/notifiers/notifiers.dart';
 import 'package:login_signup/scripts/global.dart';
 import 'package:login_signup/widgets/pages/pages.dart';
 import 'package:login_signup/widgets/primitives/primitives.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
@@ -22,3 +27,4 @@ part 'signInRoute.dart';
 part 'signUpRoute.dart';
 part 'verifyRoute.dart';
 part 'welcomeRoute.dart';
+part 'addDeckRoute.dart';

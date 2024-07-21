@@ -25,32 +25,15 @@ class DeckListPage extends StatelessWidget {
           height: 20.0,
         ),
         CircleButton(
-          onPressed: () => pushRoute(context, const AboutUsRoute()),
+          onPressed: () => pushRoute(
+              context,
+              AddDeckRoute()
+          ),
         ),
         const SizedBox(
           height: 20.0,
         ),
 // sign up divider
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-// Navigator.push(context, MaterialPageRoute(
-//    builder: (e) => const MainScreen(),
-//  ),
-              },
-              child: Text(
-                'View all sets',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  color: lightColorScheme.primary,
-                ),
-              ),
-            ),
-          ],
-        ),
         const SizedBox(height: 20.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

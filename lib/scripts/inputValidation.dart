@@ -2,6 +2,12 @@ import 'util.dart' as util;
 
 typedef ValidatorFunc = String? Function(String?);
 
+final letterReg = RegExp(r'[a-zA-Z]');
+
+bool hasLetter(String s) {
+  return letterReg.hasMatch(s);
+}
+
 final emailReg = RegExp(r'.+@.+\..+');
 
 bool validEmail(String value) {
@@ -85,6 +91,10 @@ ValidatorFunc createValidator(String emptyMessage,
 
   return newValidator;
 }
+
+final deckNameValidator = createValidator("Set Name", [
+  Validator(util.str("Missing Letter"), hasLetter)
+]);
 
 final codeValidator = createValidator("Verification Code");
 

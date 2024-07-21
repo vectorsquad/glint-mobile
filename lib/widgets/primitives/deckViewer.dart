@@ -9,38 +9,21 @@ class DeckListViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<DeckListNotifier>(
-      builder: (context, model, child) => FutureBuilder(
-            future: model.deckList,
-            builder: (context, snapshot) {
-              // final isWaiting = isState(snapshot, ConnectionState.waiting);
-              // final isActive = isState(snapshot, ConnectionState.active);
-              final isNone = isState(snapshot, ConnectionState.none);
+      builder: (context, model, child) {
 
-              if (isNone) {
-                return const Text("No Decks Created");
-              }
+        log("lmao");
+        log("lmao");
+        log("lmao");
+        log("lmao");
+        log("lmao");
 
-              final data = snapshot.data;
+          final List<Widget> deckCardBoxes = [];
 
-              // Indicate if busy retrieving data/current data is null
-              if (snapshot.connectionState != ConnectionState.done ||
-                  data == null) {
-                return const CircularProgressIndicator(
-                    backgroundColor: Colors.green);
-              }
+          for (final deckProp in model.cached) {
+            deckCardBoxes.add(DeckBox(deckProp));
+          }
 
-              final Val(:ok, :other) = data;
-              if (ok == null) {
-                return Text("Error Retrieving List Of Decks:\n$other");
-              }
-
-              final List<Widget> deckCardBoxes = [];
-
-              for (final deckProp in ok.decks) {
-                deckCardBoxes.add(DeckBox(deckProp));
-              }
-
-              return Column(children: deckCardBoxes);
-            },
-          ));
+          return Column(children: deckCardBoxes);
+        },
+  );
 }

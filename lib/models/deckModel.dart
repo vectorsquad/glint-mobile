@@ -7,10 +7,12 @@ class DeckModel {
   @JsonKey(name: "_id")
   String id;
 
-  String id_user;
+  @JsonKey(name: "id_user")
+  String userId;
+
   String name;
 
-  DeckModel(this.id, this.id_user, this.name);
+  DeckModel(this.id, this.userId, this.name);
 
   factory DeckModel.fromJson(Map<String, dynamic> json) =>
       _$DeckModelFromJson(json);

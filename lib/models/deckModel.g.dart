@@ -14,6 +14,6 @@ DeckModel _$DeckModelFromJson(Map<String, dynamic> json) => DeckModel(
 
 Map<String, dynamic> _$DeckModelToJson(DeckModel instance) => <String, dynamic>{
       '_id': instance.id,
-      'id_user': instance.id_user,
+      'id_user': instance.userId,
       'name': instance.name,
     };
