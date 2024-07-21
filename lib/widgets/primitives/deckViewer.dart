@@ -1,9 +1,5 @@
 part of 'primitives.dart';
 
-bool isState(AsyncSnapshot snapshot, ConnectionState connState) {
-  return snapshot.connectionState == connState;
-}
-
 class DeckListViewer extends StatelessWidget {
   const DeckListViewer({super.key});
 
