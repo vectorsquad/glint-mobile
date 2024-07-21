@@ -10,8 +10,8 @@ import 'package:login_signup/widgets/primitives/primitives.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:login_signup/models/models.dart';
 
-import '../../models/deckModel.dart';
 import '../../scripts/inputValidation.dart';
 import '../../scripts/requests.dart';
 import '../../scripts/util.dart';

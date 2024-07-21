@@ -5,16 +5,16 @@ part of 'notifiers.dart';
 // }
 
 class DeckListNotifier extends ChangeNotifier {
-  List<DeckModel> _cache = [];
+  List<Deck> _cache = [];
 
   DeckListNotifier() {
     refreshDeckList();
   }
 
-  UnmodifiableListView<DeckModel> get cached => UnmodifiableListView(_cache);
+  UnmodifiableListView<Deck> get cached => UnmodifiableListView(_cache);
 
   void refreshDeckList() async {
-    final Val(:ok) = await getList(getDeckList, DeckModel.fromJson);
+    final Val(:ok) = await getList(getDeckList, DeckMapper.fromMap);
     if (ok == null) {
       return;
     }

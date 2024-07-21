@@ -1,5 +1,7 @@
-library models;
+import 'package:dart_mappable/dart_mappable.dart';
 
-export 'deckModel.dart';
-export 'errorResponseModel.dart';
-export 'cardModel.dart';
+part 'models.mapper.dart';
+
+part 'deck.dart';
+part 'errorResponse.dart';
+part 'flashCard.dart';

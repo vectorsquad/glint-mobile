@@ -4,7 +4,7 @@ part of 'pages.dart';
 class SelectedSetPage extends StatelessWidget {
   const SelectedSetPage({required this.props, super.key});
 
-  final DeckModel props;
+  final Deck props;
 
   @override
   Widget build(BuildContext context) {

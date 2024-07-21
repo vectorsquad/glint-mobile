@@ -8,7 +8,7 @@ class FlashCardEditor extends StatelessWidget {
       }
       );
 
-  final CardModel props;
+  final FlashCard props;
 
   @override
   Widget build(BuildContext context) {

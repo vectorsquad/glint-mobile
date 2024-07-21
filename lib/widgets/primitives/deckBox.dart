@@ -3,7 +3,7 @@ part of 'primitives.dart';
 class DeckProps {}
 
 class DeckBox extends StatelessWidget {
-  final DeckModel props;
+  final Deck props;
 
   const DeckBox(this.props, {super.key});
 

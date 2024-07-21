@@ -1,9 +1,9 @@
 part of 'notifiers.dart';
 
 class CardListNotifier extends ChangeNotifier {
-  List<CardModel> _cache = [];
+  List<FlashCard> _cache = [];
 
-  UnmodifiableListView<CardModel> get cached => UnmodifiableListView(_cache);
+  UnmodifiableListView<FlashCard> get cached => UnmodifiableListView(_cache);
 
   void refreshCardList(String id_deck) async {
 
@@ -11,7 +11,7 @@ class CardListNotifier extends ChangeNotifier {
       "id_deck": id_deck
     });
 
-    final Val(:ok) = await getList(getCardListAll, CardModel.fromJson);
+    final Val(:ok) = await getList(getCardListAll, FlashCardMapper.fromMap);
     if (ok == null) {
       return;
     }

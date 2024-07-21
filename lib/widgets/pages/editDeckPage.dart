@@ -2,7 +2,7 @@ part of 'pages.dart';
 
 class EditDeckPage extends StatelessWidget {
 
-  final DeckModel props;
+  final Deck props;
 
   const EditDeckPage({required this.props, super.key});
 

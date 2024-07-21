@@ -4,7 +4,7 @@ class SelectedSetRoute extends StatelessWidget {
 
   const SelectedSetRoute({required this.props, super.key});
 
-  final DeckModel props;
+  final Deck props;
 
   @override
   Widget build(BuildContext context) {
