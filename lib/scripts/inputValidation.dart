@@ -92,9 +92,8 @@ ValidatorFunc createValidator(String emptyMessage,
   return newValidator;
 }
 
-final deckNameValidator = createValidator("Set Name", [
-  Validator(util.str("Missing Letter"), hasLetter)
-]);
+final deckNameValidator = createValidator(
+    "Set Name", [Validator(util.str("Missing Letter"), hasLetter)]);
 
 final codeValidator = createValidator("Verification Code");
 

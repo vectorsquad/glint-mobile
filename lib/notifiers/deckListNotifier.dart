@@ -12,7 +12,7 @@ Future<Val<List<DeckModel>, String>> getDeckList() async {
   Iterable data = ok.data;
   List<DeckModel> deckList = [];
 
-  for(final deckObj in data) {
+  for (final deckObj in data) {
     deckList.add(DeckModel.fromJson(deckObj));
   }
 
@@ -32,7 +32,7 @@ class DeckListNotifier extends ChangeNotifier {
 
   void refreshDeckList() async {
     final Val(:ok, :other) = await getDeckList();
-    if(ok == null) {
+    if (ok == null) {
       return;
     }
 
