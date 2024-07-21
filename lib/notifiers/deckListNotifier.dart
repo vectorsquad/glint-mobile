@@ -9,7 +9,7 @@ Future<Val<List<DeckModel>, String>> getDeckList() async {
     return deckListVal;
   }
 
-  Iterable data = jsonDecode(ok.data);
+  Iterable data = ok.data;
   List<DeckModel> deckList = [];
 
   for(final deckObj in data) {

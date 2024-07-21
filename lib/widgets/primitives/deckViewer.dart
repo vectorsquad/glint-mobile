@@ -9,21 +9,29 @@ class DeckListViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<DeckListNotifier>(
-      builder: (context, model, child) {
+    builder: (context, model, child) {
 
-        log("lmao");
-        log("lmao");
-        log("lmao");
-        log("lmao");
-        log("lmao");
+      final List<Widget> deckCardBoxes = [];
 
-          final List<Widget> deckCardBoxes = [];
+      for (var i = 0; i < model.cached.length; i++) {
 
-          for (final deckProp in model.cached) {
-            deckCardBoxes.add(DeckBox(deckProp));
-          }
+        final deckProp = model.cached[i];
+        deckCardBoxes.add(DeckBox(deckProp));
 
-          return Column(children: deckCardBoxes);
-        },
+        // Add spacer if more items
+        if(i+1 < model.cached.length) {
+          deckCardBoxes.add(
+              const SizedBox(
+                  width: 20,
+                  height: 20
+              )
+          );
+        }
+
+      }
+
+      return Column(children: deckCardBoxes);
+
+    },
   );
 }
