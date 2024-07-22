@@ -14,131 +14,131 @@ class SignInPage extends StatelessWidget {
     return PageBuilderRound(
         child: SingleChildScrollView(
             child: Form(
-      key: _formSignInKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Sign In',
-            style: TextStyle(
-              fontSize: 36.0,
-              fontWeight: FontWeight.w900,
-              color: lightColorScheme.primary,
-            ),
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          Text(
-            'Welcome back!',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w900,
-              color: lightColorScheme.shadow,
-            ),
-          ),
-          const SizedBox(
-            height: 40.0,
-          ),
-          TextFormFieldC(
-              name: "Username",
-              onChanged: newParamSetter(params, "username"),
-              validator: usernameValidator),
-          const SizedBox(
-            height: 25.0,
-          ),
-          TextFormFieldC(
-              name: "Password",
-              onChanged: newParamSetter(params, "password_hash"),
-              validator: passwordValidator,
-              obscure: true),
-          const SizedBox(
-            height: 25.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                child: Text(
-                  'Forgot password?',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: lightColorScheme.primary,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 25.0,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-                onPressed: () async {
-                  if (!validForm(_formSignInKey)) {
-                    return;
-                  }
-
-                  final Val(:ok, :other) = await submitSignin(payload);
-
-                  if (ok == null) {
-                    await QuickAlert.show(
-                        context: context,
-                        type: QuickAlertType.error,
-                        text: other);
-                    return;
-                  }
-
-                  await replaceRoute(context, const DeckListScreen());
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: lightColorScheme.primary,
-                    textStyle: const TextStyle(fontSize: 18)),
-                child: const Text('Submit')),
-          ),
-          const SizedBox(
-            height: 25.0,
-          ),
-          const SizedBox(
-            height: 25.0,
-          ),
-// don't have an account
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Don\'t have an account? ',
-                style: TextStyle(
-                  color: Colors.black45,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (e) => SignUpScreen(),
+              key: _formSignInKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Sign In',
+                    style: TextStyle(
+                      fontSize: 36.0,
+                      fontWeight: FontWeight.w900,
+                      color: lightColorScheme.primary,
                     ),
-                  );
-                },
-                child: Text(
-                  'Sign up here',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: lightColorScheme.primary,
                   ),
-                ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(
+                    'Welcome back!',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w900,
+                      color: lightColorScheme.shadow,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 40.0,
+                  ),
+                  TextFormFieldC(
+                      name: "Username",
+                      onChanged: newParamSetter(params, "username"),
+                      validator: usernameValidator),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                  TextFormFieldC(
+                      name: "Password",
+                      onChanged: newParamSetter(params, "password_hash"),
+                      validator: passwordValidator,
+                      obscure: true),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        child: Text(
+                          'Forgot password?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: lightColorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          if (!validForm(_formSignInKey)) {
+                            return;
+                          }
+
+                          final Val(:ok, :other) = await submitSignin(payload);
+
+                          if (ok == null) {
+                            await QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                text: other);
+                            return;
+                          }
+
+                          await replaceRoute(context, const DeckListScreen());
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: lightColorScheme.primary,
+                            textStyle: const TextStyle(fontSize: 18)),
+                        child: const Text('Submit')),
+                  ),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+// don't have an account
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Don\'t have an account? ',
+                        style: TextStyle(
+                          color: Colors.black45,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (e) => SignUpScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Sign up here',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: lightColorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-        ],
-      ),
-    )));
+            )));
   }
 }

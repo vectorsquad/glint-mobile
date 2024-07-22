@@ -22,6 +22,7 @@ class TextFormFieldC extends StatelessWidget {
       obscureText: obscure,
       validator: validator,
       onChanged: onChanged,
+      onTapOutside: (ev) => FocusManager.instance.primaryFocus?.unfocus(),
       decoration: InputDecoration(
         label: Text(name),
         hintText: "Enter $name",

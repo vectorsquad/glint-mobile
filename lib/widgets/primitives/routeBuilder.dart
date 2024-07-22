@@ -8,8 +8,7 @@ class RouteBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        child: PageBuilderRound(
-      child: child,
-    ));
+            child: child,
+    );
   }
 }

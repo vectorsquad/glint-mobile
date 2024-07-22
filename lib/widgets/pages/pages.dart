@@ -21,5 +21,5 @@ part 'signInPage.dart';
 part 'welcomePage.dart';
 part 'loadingPage.dart';
 part 'selectedSetPage.dart';
-part 'editDeckPage.dart';
+part 'deckEditor.dart';
 part 'apiUrlEditor.dart';

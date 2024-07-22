@@ -1,3 +1,4 @@
+import 'package:login_signup/models/models.dart';
 import 'package:login_signup/scripts/util.dart';
 
 import 'global.dart';
@@ -35,4 +36,15 @@ ValRespFuture createCard(RequestParams params) async {
 
 ValRespFuture createCardEmpty(String id_deck) async {
   return createCard({"id_deck": id_deck});
+}
+
+ValRespFuture swapCards(FlashCard firstCard, FlashCard secondCard) async {
+  return await req(() => dio.post(apiUrl("swapCards"), data: {
+    "card_first": {
+      "_id": firstCard.id
+    },
+    "card_second": {
+      "_id": secondCard.id
+    }
+  }));
 }

@@ -38,7 +38,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () => pushRoute(
-                            context, const RouteBuilder(child: ApiUrlEditor())),
+                            context, const ApiUrlEditor()),
                         child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: Colors.white),
@@ -47,8 +47,14 @@ class WelcomePage extends StatelessWidget {
                               Icons.settings,
                               color: Colors.white,
                             ),
-                            onPressed: () => pushRoute(context,
-                                const RouteBuilder(child: ApiUrlEditor()))))
+                            onPressed: () => pushRoute(
+                                context,
+                                const PageBuilderRound(
+                                    child: ApiUrlEditor()
+                                )
+                            )
+                        )
+                    )
                   ],
                 ))),
         Flexible(
