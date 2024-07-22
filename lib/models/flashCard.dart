@@ -5,11 +5,21 @@ class FlashCard with FlashCardMappable {
   @MappableField(key: "_id")
   String id;
 
-  String side_front;
-  String side_back;
-  String id_deck;
-  int deck_index;
+  @MappableField(key: "side_front")
+  String? sideFront;
+
+  @MappableField(key: "side_back")
+  String? sideBack;
+
+  @MappableField(key: "deck_index")
+  int deckIndex;
+
+  @MappableField(key: "id_deck")
+  String deckId;
 
   FlashCard(
-      this.id, this.side_front, this.side_back, this.id_deck, this.deck_index);
+    this.id,
+    this.deckId,
+    this.deckIndex,
+  );
 }

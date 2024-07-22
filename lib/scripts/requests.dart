@@ -25,20 +25,14 @@ ValRespFuture getCardList(Map<String, dynamic> params) {
   return req(() => dio.post(apiUrl("find"), data: params));
 }
 
-// Future<Val<T, String>> Function(RequestParams) requestBuilder<T>(Future<Response<dynamic>> Function() callback) {
-//   return (params) async {
-//     final Val(ok:respOk, other:respOther) = await req(callback);
-//     final deserialized = Val<T, String>(respOther);
-//
-//     if(respOk == null) {
-//       return deserialized;
-//     }
-//
-//     deserialized.ok = T
-//
-//   };
-// }
-
 ValRespFuture createDeck(RequestParams params) async {
   return req(() => dio.post(apiUrl("createDeck"), data: params));
+}
+
+ValRespFuture createCard(RequestParams params) async {
+  return await req(() => dio.post(apiUrl("create"), data: params));
+}
+
+ValRespFuture createCardEmpty(String id_deck) async {
+  return createCard({"id_deck": id_deck});
 }

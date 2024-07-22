@@ -232,31 +232,31 @@ class FlashCardMapper extends ClassMapperBase<FlashCard> {
 
   static String _$id(FlashCard v) => v.id;
   static const Field<FlashCard, String> _f$id = Field('id', _$id, key: '_id');
-  static String _$side_front(FlashCard v) => v.side_front;
-  static const Field<FlashCard, String> _f$side_front =
-      Field('side_front', _$side_front);
-  static String _$side_back(FlashCard v) => v.side_back;
-  static const Field<FlashCard, String> _f$side_back =
-      Field('side_back', _$side_back);
-  static String _$id_deck(FlashCard v) => v.id_deck;
-  static const Field<FlashCard, String> _f$id_deck =
-      Field('id_deck', _$id_deck);
-  static int _$deck_index(FlashCard v) => v.deck_index;
-  static const Field<FlashCard, int> _f$deck_index =
-      Field('deck_index', _$deck_index);
+  static String _$deckId(FlashCard v) => v.deckId;
+  static const Field<FlashCard, String> _f$deckId =
+      Field('deckId', _$deckId, key: 'id_deck');
+  static int _$deckIndex(FlashCard v) => v.deckIndex;
+  static const Field<FlashCard, int> _f$deckIndex =
+      Field('deckIndex', _$deckIndex, key: 'deck_index');
+  static String? _$sideFront(FlashCard v) => v.sideFront;
+  static const Field<FlashCard, String> _f$sideFront =
+      Field('sideFront', _$sideFront, key: 'side_front');
+  static String? _$sideBack(FlashCard v) => v.sideBack;
+  static const Field<FlashCard, String> _f$sideBack =
+      Field('sideBack', _$sideBack, key: 'side_back');
 
   @override
   final MappableFields<FlashCard> fields = const {
     #id: _f$id,
-    #side_front: _f$side_front,
-    #side_back: _f$side_back,
-    #id_deck: _f$id_deck,
-    #deck_index: _f$deck_index,
+    #deckId: _f$deckId,
+    #deckIndex: _f$deckIndex,
+    #sideFront: _f$sideFront,
+    #sideBack: _f$sideBack,
   };
 
   static FlashCard _instantiate(DecodingData data) {
-    return FlashCard(data.dec(_f$id), data.dec(_f$side_front),
-        data.dec(_f$side_back), data.dec(_f$id_deck), data.dec(_f$deck_index));
+    return FlashCard(
+        data.dec(_f$id), data.dec(_f$deckId), data.dec(_f$deckIndex));
   }
 
   @override
@@ -309,12 +309,7 @@ extension FlashCardValueCopy<$R, $Out> on ObjectCopyWith<$R, FlashCard, $Out> {
 
 abstract class FlashCardCopyWith<$R, $In extends FlashCard, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call(
-      {String? id,
-      String? side_front,
-      String? side_back,
-      String? id_deck,
-      int? deck_index});
+  $R call({String? id, String? deckId, int? deckIndex});
   FlashCardCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -327,26 +322,17 @@ class _FlashCardCopyWithImpl<$R, $Out>
   late final ClassMapperBase<FlashCard> $mapper =
       FlashCardMapper.ensureInitialized();
   @override
-  $R call(
-          {String? id,
-          String? side_front,
-          String? side_back,
-          String? id_deck,
-          int? deck_index}) =>
+  $R call({String? id, String? deckId, int? deckIndex}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
-        if (side_front != null) #side_front: side_front,
-        if (side_back != null) #side_back: side_back,
-        if (id_deck != null) #id_deck: id_deck,
-        if (deck_index != null) #deck_index: deck_index
+        if (deckId != null) #deckId: deckId,
+        if (deckIndex != null) #deckIndex: deckIndex
       }));
   @override
   FlashCard $make(CopyWithData data) => FlashCard(
       data.get(#id, or: $value.id),
-      data.get(#side_front, or: $value.side_front),
-      data.get(#side_back, or: $value.side_back),
-      data.get(#id_deck, or: $value.id_deck),
-      data.get(#deck_index, or: $value.deck_index));
+      data.get(#deckId, or: $value.deckId),
+      data.get(#deckIndex, or: $value.deckIndex));
 
   @override
   FlashCardCopyWith<$R2, FlashCard, $Out2> $chain<$R2, $Out2>(

@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup/scripts/requests.dart';
+import 'package:quickalert/quickalert.dart';
 
 import 'global.dart';
 
@@ -140,6 +142,7 @@ Future<Val<List<T>, String>> getList<T>(ValRespFuture Function() fetcher,
   }
 
   Iterable data = ok.data;
+  log(jsonEncode(data));
   List<T> concreteList = [];
 
   for (final deckObj in data) {
@@ -149,4 +152,9 @@ Future<Val<List<T>, String>> getList<T>(ValRespFuture Function() fetcher,
   listVal.ok = concreteList;
 
   return listVal;
+}
+
+Future<void> alertVal(Val<dynamic, String> data, BuildContext context) async {
+  await QuickAlert.show(
+      context: context, type: QuickAlertType.error, text: data.other);
 }

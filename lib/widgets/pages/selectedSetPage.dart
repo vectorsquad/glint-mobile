@@ -30,9 +30,7 @@ class SelectedSetPage extends StatelessWidget {
             width: double.infinity,
             height: 420.0,
             child: ElevatedButton(
-              onPressed: () {
-// FLIP CARD
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                   backgroundColor: lightColorScheme.tertiary,
                   textStyle: const TextStyle(fontSize: 24)),

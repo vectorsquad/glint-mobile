@@ -78,25 +78,20 @@ class SignInPage extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () async {
-// Return early if form is not valid.
                   if (!validForm(_formSignInKey)) {
                     return;
                   }
 
-// Submit form.
-                  log(jsonEncode(payload));
                   final Val(:ok, :other) = await submitSignin(payload);
 
-// Alert user if no "ok" value and return early.
                   if (ok == null) {
                     await QuickAlert.show(
                         context: context,
                         type: QuickAlertType.error,
                         text: other);
-// return;
+                    return;
                   }
 
-// Navigate to list of decks.
                   await replaceRoute(context, const DeckListScreen());
                 },
                 style: ElevatedButton.styleFrom(

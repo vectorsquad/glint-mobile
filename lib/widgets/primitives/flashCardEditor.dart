@@ -15,7 +15,7 @@ class FlashCardEditor extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "Card ${props.deck_index}",
+              "Card ${props.deckIndex}",
               style: TextStyle(
                 fontSize: 22.0,
                 fontWeight: FontWeight.w900,
@@ -34,6 +34,10 @@ class FlashCardEditor extends StatelessWidget {
               name: "Back Text",
               onChanged: (s) {},
               validator: flashCardBackValidator,
+            ),
+            const SizedBox(
+              width: 20,
+              height: 20,
             )
           ],
         ));
