@@ -5,7 +5,6 @@ class ApiConfigNotifier extends ChangeNotifier {
 
   void toggleSecure(secure) {
     currentProtocol = secure ? "https" : "http";
-    log(apiUrl("lmao"));
     notifyListeners();
   }
 

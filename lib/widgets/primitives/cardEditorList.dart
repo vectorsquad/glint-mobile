@@ -28,34 +28,33 @@ class CardEditorList extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Consumer<CardListNotifier>(
-          builder: (context, model, child) =>
-              ReorderableListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  proxyDecorator: proxyDecorator,
-                  shrinkWrap: true,
-                  onReorder: (e1, e2) async {
+          builder: (context, model, child) {
+            return ReorderableListView(
+                physics: const NeverScrollableScrollPhysics(),
+                proxyDecorator: proxyDecorator,
+                shrinkWrap: true,
+                onReorder: (oldIndex, newIndex) async {
+                  final Val(ok:swapOk, other:swapOther) = await swapCards(
+                      model.cached[oldIndex],
+                      model.cached[newIndex]
+                  );
 
-                    final Val(ok:swapOk, other:swapOther) = await swapCards(
-                        model.cached[e1],
-                        model.cached[e2]
-                    );
+                  if (swapOk == null) {
+                    log(swapOther);
+                    return;
+                  }
 
-                    if(swapOk == null) {
-                      log(swapOther);
-                      return;
-                    }
-
-                    await model.refreshCardList();
-
-                  },
-                  children: [
-                    for(final props in model.cached)
-                      CardEditor(
-                          props: props,
-                          key: ValueKey(props.id)
-                      )
-                  ]
-              )
+                  await model.refresh();
+                },
+                children: [
+                  for(final props in model.cached)
+                    CardEditor(
+                        props: props,
+                        key: ValueKey(props.id)
+                    )
+                ]
+            );
+          }
       );
 
 }

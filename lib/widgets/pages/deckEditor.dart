@@ -31,7 +31,7 @@ class DeckEditor extends StatelessWidget {
                       TextFormFieldC(
                           name: "Set Name",
                           initialValue: props.name,
-                          onChanged: newParamSetter({}, ""),
+                          onChanged: createParamSetter({}, ""),
                           validator: setNameValidator),
                       const SizedBox(
                         height: 20.0,

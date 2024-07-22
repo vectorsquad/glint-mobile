@@ -38,6 +38,10 @@ ValRespFuture createCardEmpty(String id_deck) async {
   return createCard({"id_deck": id_deck});
 }
 
+ValRespFuture updateCard(params) async {
+  return req(() => dio.post(apiUrl("update"), data: params));
+}
+
 ValRespFuture swapCards(FlashCard firstCard, FlashCard secondCard) async {
   return await req(() => dio.post(apiUrl("swapCards"), data: {
     "card_first": {

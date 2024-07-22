@@ -59,7 +59,7 @@ class VerifyRoute extends StatelessWidget {
                       ),
                       TextFormFieldC(
                           name: "Code",
-                          onChanged: newParamSetter(params, "code"),
+                          onChanged: createParamSetter(params, "code"),
                           validator: codeValidator),
                       const SizedBox(
                         height: 25.0,

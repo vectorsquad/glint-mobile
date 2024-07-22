@@ -8,6 +8,7 @@ import 'package:login_signup/widgets/routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:login_signup/models/models.dart';
 import 'package:login_signup/notifiers/notifiers.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../../scripts/inputValidation.dart';
 import '../../scripts/requests.dart';

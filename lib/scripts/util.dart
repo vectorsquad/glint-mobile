@@ -145,7 +145,7 @@ Future<JWT?> getUserId() async {
   return JWT.decode(ck.cookie.value);
 }
 
-Function(String) newParamSetter(Map<String, dynamic> params, String key) {
+void Function(String) createParamSetter(Map<String, dynamic> params, String key) {
   return (s) => params[key] = s;
 }
 

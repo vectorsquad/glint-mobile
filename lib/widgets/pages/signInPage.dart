@@ -43,14 +43,14 @@ class SignInPage extends StatelessWidget {
                   ),
                   TextFormFieldC(
                       name: "Username",
-                      onChanged: newParamSetter(params, "username"),
+                      onChanged: createParamSetter(params, "username"),
                       validator: usernameValidator),
                   const SizedBox(
                     height: 25.0,
                   ),
                   TextFormFieldC(
                       name: "Password",
-                      onChanged: newParamSetter(params, "password_hash"),
+                      onChanged: createParamSetter(params, "password_hash"),
                       validator: passwordValidator,
                       obscure: true),
                   const SizedBox(

@@ -27,7 +27,7 @@ class AddDeckRoute extends StatelessWidget {
               ),
               TextFormFieldC(
                 name: "Deck Name",
-                onChanged: newParamSetter(params, "name"),
+                onChanged: createParamSetter(params, "name"),
                 validator: deckNameValidator,
               ),
               const SizedBox(

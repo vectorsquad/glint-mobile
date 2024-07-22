@@ -50,28 +50,28 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       TextFormFieldC(
                           name: "First Name",
-                          onChanged: newParamSetter(params, "name_first"),
+                          onChanged: createParamSetter(params, "name_first"),
                           validator: firstNameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       TextFormFieldC(
                           name: "Last Name",
-                          onChanged: newParamSetter(params, "name_last"),
+                          onChanged: createParamSetter(params, "name_last"),
                           validator: lastNameValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       TextFormFieldC(
                           name: "Email",
-                          onChanged: newParamSetter(params, "email"),
+                          onChanged: createParamSetter(params, "email"),
                           validator: emailValidator),
                       const SizedBox(
                         height: 25.0,
                       ),
                       TextFormFieldC(
                         name: "Username",
-                        onChanged: newParamSetter(params, "username"),
+                        onChanged: createParamSetter(params, "username"),
                         validator: usernameValidator,
                       ),
                       const SizedBox(
@@ -79,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       TextFormFieldC(
                           name: "Password",
-                          onChanged: newParamSetter(params, "password_hash"),
+                          onChanged: createParamSetter(params, "password_hash"),
                           validator: passwordValidator,
                           obscure: true),
                       const SizedBox(
