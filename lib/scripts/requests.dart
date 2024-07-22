@@ -14,7 +14,7 @@ ValRespFuture submitSignup(RequestParams params) {
 }
 
 ValRespFuture submitVerification(String code) {
-  return req(() => dio.post(apiUrl("verify"), queryParameters: {"code": code}));
+  return req(() => dio.get(apiUrl("verify"), queryParameters: {"code": code}));
 }
 
 ValRespFuture getDeckList() {

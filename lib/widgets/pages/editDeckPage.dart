@@ -9,7 +9,7 @@ class EditDeckPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final formSignupKey = GlobalKey<FormState>();
     return ChangeNotifierProvider(
-        create: (context) => CardListNotifier(),
+        create: (context) => CardListNotifier(props.id),
         child: Form(
           key: formSignupKey,
           child: Column(
@@ -41,7 +41,13 @@ class EditDeckPage extends StatelessWidget {
                   children.add(FlashCardEditor(props: props));
                 }
 
-                return Column(children: children);
+                return ReorderableListView(
+                    onReorder: (e1, e2) {
+                      log("$e1}");
+                      log("$e2}");
+                    },
+                    children: children
+                );
               }),
               const SizedBox(
                 height: 20.0,

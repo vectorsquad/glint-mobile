@@ -5,6 +5,10 @@ class CardListNotifier extends ChangeNotifier {
 
   UnmodifiableListView<FlashCard> get cached => UnmodifiableListView(_cache);
 
+  CardListNotifier(String id_deck) {
+    refreshCardList(id_deck);
+  }
+
   void refreshCardList(String id_deck) async {
     ValRespFuture getCardListAll() => getCardList({"id_deck": id_deck});
 
