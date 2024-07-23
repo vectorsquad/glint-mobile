@@ -11,6 +11,11 @@ class CheckedCountNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void reset() {
+    _totalChecked = 0;
+    notifyListeners();
+  }
+
   get none => _totalChecked == 0;
 
 }

@@ -49,6 +49,7 @@ class DeckListPage extends StatelessWidget {
                               }
 
                               await deckList.submitDelete();
+                              checkedCount.reset();
 
                             }
                         ),
