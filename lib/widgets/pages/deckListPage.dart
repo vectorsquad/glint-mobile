@@ -15,7 +15,7 @@ class DeckListPage extends StatelessWidget {
                 children: [
 // get started text
                   Text(
-                    'Your Sets',
+                    'Deck List',
                     style: TextStyle(
                       fontSize: 30.0,
                       fontWeight: FontWeight.w900,
