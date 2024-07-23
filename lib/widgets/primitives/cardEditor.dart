@@ -13,9 +13,9 @@ Future<void> Function(String) createParamSetterNewOnly(BuildContext context, Map
     cardListNotifier.queueUpdate(props, params);
 
     cardListNotifier.refreshDelayed(
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         beforeRefresh: () async {
-          cardListNotifier.submitUpdates();
+          await cardListNotifier.submitUpdates();
         }
     );
 
@@ -37,6 +37,8 @@ class CardEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(jsonEncode(props));
+    params["_id"] = props.id;
     return Card(
         child: Column(
           key: ValueKey(props.id),

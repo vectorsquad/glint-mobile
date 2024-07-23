@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => DeckListNotifier()),
           ChangeNotifierProvider(create: (context) => ApiConfigNotifier()),
         ],
-        child: MaterialApp(
+        child:MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Glint',
           theme: lightMode,

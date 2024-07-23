@@ -29,18 +29,25 @@ class CardEditorList extends StatelessWidget {
   Widget build(BuildContext context) =>
       Consumer<CardListNotifier>(
           builder: (context, model, child) {
+            log("lmao");
+            log("lmao");
+            log("cheese");
+            log(jsonEncode(model.cached));
+            log("cheese");
+            log("lmao");
+            log("lmao");
+
             return ReorderableListView(
                 physics: const NeverScrollableScrollPhysics(),
                 proxyDecorator: proxyDecorator,
                 shrinkWrap: true,
                 onReorder: (oldIndex, newIndex) async {
-                  final Val(ok:swapOk, other:swapOther) = await swapCards(
+                  final Val(ok:swapOk) = await swapCards(
                       model.cached[oldIndex],
                       model.cached[newIndex]
                   );
 
                   if (swapOk == null) {
-                    log(swapOther);
                     return;
                   }
 

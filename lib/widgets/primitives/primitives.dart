@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:login_signup/widgets/pages/pages.dart';
 import 'package:login_signup/widgets/routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:login_signup/models/models.dart';
@@ -26,3 +27,5 @@ part 'routeBuilder.dart';
 part 'cardEditor.dart';
 part 'cardEditorList.dart';
 part 'addCardButton.dart';
+part 'cardViewer.dart';
+part 'changeCardButton.dart';

@@ -5,20 +5,24 @@ class CardListNotifier extends ChangeNotifier {
   List<FlashCard> _cache = [];
   UnmodifiableListView<FlashCard> get cached => UnmodifiableListView(_cache);
   Timer? queuedRefresh;
-  final Map<String, Map<String, dynamic>> queuedParams = HashMap();
+  Map<String, Map<String, dynamic>> _queuedParams = HashMap();
 
   CardListNotifier({required this.deckId}) {
     refresh();
   }
 
   void queueUpdate(FlashCard props, Map<String, dynamic> params) {
-    if(queuedParams[props.id] == null) {
-      queuedParams[props.id] = params;
+    if(_queuedParams[props.id] == null) {
+      _queuedParams[props.id] = params;
     }
   }
 
+  void clearUpdates() {
+    _queuedParams = HashMap();
+  }
+
   Future<void> submitUpdates() async {
-    for(final params in queuedParams.values) {
+    for(final params in _queuedParams.values) {
       final Val(:ok, :other) = await updateCard(params);
       if(ok == null) {
         log(other);
@@ -35,7 +39,7 @@ class CardListNotifier extends ChangeNotifier {
 
     this.queuedRefresh = Timer(duration, () async {
       await beforeRefresh();
-      refresh();
+      await refresh();
     });
   }
 

@@ -6,6 +6,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup/scripts/requests.dart';
 import 'package:login_signup/widgets/primitives/primitives.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
 import 'global.dart';

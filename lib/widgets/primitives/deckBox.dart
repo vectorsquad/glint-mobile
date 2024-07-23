@@ -8,20 +8,26 @@ class DeckBox extends StatelessWidget {
   const DeckBox(this.props, {super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 140.0,
-      child: ElevatedButton(
-        onPressed: () async {
-          // Go to deck's info screen
-          await pushRoute(context, SelectedSetRoute(props: props));
-        },
-        style: ElevatedButton.styleFrom(
-            backgroundColor: lightColorScheme.tertiary,
-            textStyle: const TextStyle(fontSize: 24)),
-        child: Text(props.name),
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      ChangeNotifierProvider(
+          create: (context) => DeckNotifier(props: props),
+          child: SizedBox(
+            width: double.infinity,
+            height: 140.0,
+            child: ElevatedButton(
+              onPressed: () async {
+                await pushRoute(
+                    context,
+                    SelectedSetPage(props: props)
+                );
+                await Provider.of<DeckListNotifier>(context).refreshDeckList();
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: lightColorScheme.tertiary,
+                  textStyle: const TextStyle(fontSize: 24)),
+              child: Text(props.name),
+            ),
+          )
+      );
+
 }

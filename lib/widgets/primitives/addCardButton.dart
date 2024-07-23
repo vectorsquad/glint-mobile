@@ -6,8 +6,11 @@ class AddCardButton extends StatelessWidget {
   const AddCardButton({required this.props, super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      Consumer<CardListNotifier>(
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+      create: (context) => CardListNotifier(
+          deckId: props.id
+      ),
+      child: Consumer<CardListNotifier>(
           builder: (context, model, child) => RawMaterialButton(
               onPressed: () async {
                 final val = await createCardEmpty(props.id);
@@ -30,6 +33,7 @@ class AddCardButton extends StatelessWidget {
                 color: Colors.white,
               )
           )
-      );
+      )
+  );
 
 }

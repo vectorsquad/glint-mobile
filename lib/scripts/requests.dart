@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:login_signup/models/models.dart';
 import 'package:login_signup/scripts/util.dart';
 
@@ -18,6 +19,10 @@ ValRespFuture submitVerification(String code) {
   return req(() => dio.get(apiUrl("verify"), queryParameters: {"code": code}));
 }
 
+ValRespFuture getDeck(Map<String, dynamic> params) {
+  return req(() => dio.post(apiUrl("findDeck"), data: params));
+}
+
 ValRespFuture getDeckList() {
   return req(() => dio.post(apiUrl("findDeck")));
 }
@@ -28,6 +33,10 @@ ValRespFuture getCardList(Map<String, dynamic> params) {
 
 ValRespFuture createDeck(RequestParams params) async {
   return req(() => dio.post(apiUrl("createDeck"), data: params));
+}
+
+ValRespFuture updateDeck(RequestParams params) async {
+  return req(() => dio.post(apiUrl("updateDeck"), data: params));
 }
 
 ValRespFuture createCard(RequestParams params) async {
