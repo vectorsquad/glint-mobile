@@ -26,17 +26,17 @@ class DeckEditor extends StatelessWidget {
                   height: 30.0,
                 ),
                 Consumer<DeckNotifier>(
-                  builder: (context, model, child) => TextFormFieldC(
+                  builder: (context, deckNotifier, child) => TextFormFieldC(
                       name: "Deck Name",
-                      initialValue: model.props.name,
+                      initialValue: deckNotifier.props.name,
                       onChanged: (s) {
-                        model.setParam("name", s);
-                        model.refreshDelayed(
+                        deckNotifier.setParam("name", s);
+                        deckNotifier.refreshDelayed(
                             beforeRefresh: () async {
-                              await updateDeck(model.params);
-                              await model.refresh();
+                              await updateDeck(deckNotifier.params);
+                              await deckNotifier.refresh();
                             },
-                            duration: const Duration(seconds: 2)
+                            duration: const Duration(seconds: 0)
                         );
                       },
                       validator: setNameValidator

@@ -23,6 +23,17 @@ class ApiUrlEditor extends StatelessWidget {
                       onChanged: notifier.toggleSecure,
                     )
                   ],
+                ),
+                Row(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () => pushRoute(
+                            context,
+                            AboutUsRoute()
+                        ),
+                        child: Text("About Us")
+                    )
+                  ],
                 )
               ],
             ));

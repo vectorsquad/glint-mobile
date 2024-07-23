@@ -33,7 +33,6 @@ class CardEditor extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
-        key: ValueKey(props.id),
         children: [
           Text(
             "Card ${props.deckIndex + 1}",
