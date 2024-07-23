@@ -26,17 +26,17 @@ class SelectedSetPage extends StatelessWidget {
               height: 30.0,
             ),
             Consumer<DeckNotifier>(
-              builder: (context, model, child) => ChangeNotifierProvider(
-                create: (context) => CardListNotifier(props: model.props),
+              builder: (context, deckNotifier, child) => ChangeNotifierProvider(
+                create: (context) => CardListNotifier(props: deckNotifier.props),
                 child: Consumer<CardListNotifier>(
-                    builder: (context, model, child) => Column(
+                    builder: (context, cardListNotifier, child) => Column(
                       children: [
-                        model.cached.isEmpty
+                        cardListNotifier.cached.isEmpty
                             ? const Text("No Cards Created")
                             : ChangeNotifierProvider(
                             create: (context) => CurrentCardNotifier(
-                                cardList: model.cached,
-                                card: model.cached[0]
+                                cardList: cardListNotifier.cached,
+                                card: cardListNotifier.cached[0]
                             ),
                             child: const Column(
                               children: [
@@ -64,8 +64,8 @@ class SelectedSetPage extends StatelessWidget {
                                       DeckEditor(props: props)
                                   );
 
-                                  Provider.of<DeckNotifier>(context, listen: false)
-                                      .refresh();
+                                  await deckNotifier.refresh();
+                                  await cardListNotifier.refresh();
                                 },
                                 elevation: 2.0,
                                 fillColor: lightColorScheme.primary,

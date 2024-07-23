@@ -5,21 +5,68 @@ class DeckListViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<DeckListNotifier>(
-        builder: (context, model, child) {
-          final List<Widget> deckCardBoxes = [];
+      builder: (context, deckListModel, child) => ListView.builder(
+          shrinkWrap: true,
+          itemCount: deckListModel.cached.length,
+          itemBuilder: (context, index) => Column(
+              children: [
+                ChangeNotifierProvider(
+                    create: (_) => CheckboxStateNotifier(),
+                    child: Consumer<CheckboxStateNotifier>(
+                        builder: (context, checkboxState, child) => Consumer<ShowCheckboxNotifier>(
+                            builder: (context, showCheckboxModel, child) => Column(
+                              children: [
+                                GestureDetector(
+                                    onTap: () async {
 
-          for (var i = 0; i < model.cached.length; i++) {
-            final deckProp = model.cached[i];
-            deckCardBoxes.add(DeckBox(deckProp));
+                                      if(showCheckboxModel.showCheckbox) {
+                                        checkboxState.toggle();
 
-            // Add spacer if more items
-            if (i + 1 < model.cached.length) {
-              const spacer = SizedBox(width: 20, height: 20);
-              deckCardBoxes.add(spacer);
-            }
-          }
+                                        showCheckboxModel.mutateChecked(checkboxState.enabled);
 
-          return Column(children: deckCardBoxes);
-        },
-      );
+                                        if(showCheckboxModel.checked == 0) {
+                                          showCheckboxModel.hide();
+                                        }
+
+                                        return;
+                                      }
+
+                                      await pushRoute(
+                                          context,
+                                          SelectedSetPage(props: deckListModel.cached[index])
+                                      );
+                                      await deckListModel.refresh();
+
+                                    },
+                                    onLongPress: () {
+                                      HapticFeedback.vibrate();
+                                      checkboxState.toggle();
+                                      showCheckboxModel.mutateChecked(checkboxState.enabled);
+
+                                      if(showCheckboxModel.checked == 0) {
+                                        showCheckboxModel.hide();
+                                      } else {
+                                        showCheckboxModel.show();
+                                      }
+
+                                    },
+                                    child: ListTile(
+                                      leading: showCheckboxModel.showCheckbox ?
+                                      Checkbox(
+                                          value: checkboxState.enabled, onChanged: (bool? value) {  }
+                                      )
+                                          : const Text(""),
+                                      title: Text(deckListModel.cached[index].name),
+                                    )
+                                ),
+                                const Divider()
+                              ],
+                            )
+                        )
+                    )
+                )
+              ]
+          )
+      )
+  );
 }

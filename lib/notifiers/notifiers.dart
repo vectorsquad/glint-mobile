@@ -16,3 +16,5 @@ part 'cardListNotifier.dart';
 part 'apiUri.dart';
 part 'deckNotifier.dart';
 part 'currentCardNotifier.dart';
+part 'showCheckboxNotifier.dart';
+part 'checkboxStateNotifier.dart';
