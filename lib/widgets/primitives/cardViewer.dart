@@ -2,21 +2,23 @@
 part of 'primitives.dart';
 
 class CardViewer extends StatelessWidget {
-  const CardViewer({super.key});
+
+  final String text;
+  final Function() callback;
+
+  const CardViewer({required this.callback, required this.text, super.key});
 
   @override
-  Widget build(BuildContext context) => Consumer<CurrentCardNotifier>(
-      builder: (context, model, child) => SizedBox(
+  Widget build(BuildContext context) => SizedBox(
         width: double.infinity,
-        height: 420.0,
+        height: 350.0,
         child: ElevatedButton(
-          onPressed: model.toggleText,
           style: ElevatedButton.styleFrom(
               backgroundColor: lightColorScheme.tertiary,
               textStyle: const TextStyle(fontSize: 24)),
-          child: Text(model.text),
-        ),
-      )
+          onPressed: callback,
+          child: Text(text),
+        )
   );
 
 }

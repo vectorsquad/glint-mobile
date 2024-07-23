@@ -48,6 +48,8 @@ class CardListNotifier extends ChangeNotifier {
       return;
     }
 
+    log(jsonEncode(ok));
+
     _cache = ok;
     notifyListeners();
   }

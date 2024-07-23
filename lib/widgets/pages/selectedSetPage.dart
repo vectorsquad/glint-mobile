@@ -38,11 +38,29 @@ class SelectedSetPage extends StatelessWidget {
                                 cardList: cardListNotifier.cached,
                                 card: cardListNotifier.cached[0]
                             ),
-                            child: const Column(
+                            child: Column(
                               children: [
-                                CardViewer(),
-                                SizedBox(height: 20.0),
-                                Row(
+                                Consumer<CurrentCardNotifier>(
+                                    builder: (context, currentCard, child) {
+                                      final controller = FlipCardController();
+                                      return FlipCard(
+                                        fill: Fill.fillBack,
+                                        side: CardSide.FRONT,
+                                        direction: FlipDirection.HORIZONTAL,
+                                        controller: controller,
+                                        front: CardViewer(
+                                            callback: controller.toggleCard,
+                                            text: currentCard.card.sideFront ?? ""
+                                        ),
+                                        back: CardViewer(
+                                            callback: controller.toggleCard,
+                                            text: currentCard.card.sideBack ?? ""
+                                        ),
+                                      );
+                                    }
+                                ),
+                                const SizedBox(height: 20.0),
+                                const Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -50,7 +68,8 @@ class SelectedSetPage extends StatelessWidget {
                                       ChangeCardButton(isNext: true),
                                     ])
                               ],
-                            )),
+                            )
+                        ),
                         const SizedBox(
                           height: 20.0,
                         ),
@@ -64,6 +83,8 @@ class SelectedSetPage extends StatelessWidget {
                                       DeckEditor(props: props)
                                   );
 
+                                  log("refreshing current deck");
+                                  log("refreshing current cards in deck");
                                   await deckNotifier.refresh();
                                   await cardListNotifier.refresh();
                                 },
