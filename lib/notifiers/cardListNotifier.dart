@@ -25,9 +25,6 @@ class CardListNotifier extends ChangeNotifier {
   Future<void> submitUpdates() async {
     for(final params in _queuedParams.values) {
       final Val(:ok, :other) = await updateCard(params);
-      if(ok == null) {
-        log(other);
-      }
     }
   }
 

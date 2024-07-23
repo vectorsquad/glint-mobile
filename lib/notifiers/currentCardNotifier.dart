@@ -27,6 +27,11 @@ class CurrentCardNotifier extends ChangeNotifier {
   void _setText(String? s ) => text = s ?? "";
 
   void toggleText() {
+
+    for(final card in cardList) {
+      log("${card.id}: ${card.sideFront}, ${card.sideBack}");
+    }
+
     if(onFrontSide) {
       _setText(card.sideBack);
     } else {

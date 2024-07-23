@@ -1,4 +1,3 @@
-import 'package:dart_mappable/dart_mappable.dart';
 import 'package:login_signup/models/models.dart';
 import 'package:login_signup/scripts/util.dart';
 
@@ -40,7 +39,7 @@ ValRespFuture updateDeck(RequestParams params) async {
 }
 
 ValRespFuture createCard(RequestParams params) async {
-  return await req(() => dio.post(apiUrl("create"), data: params));
+  return await req(() => dio.post(apiUrl("createCard"), data: params));
 }
 
 ValRespFuture createCardEmpty(String id_deck) async {

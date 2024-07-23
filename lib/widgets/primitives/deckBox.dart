@@ -20,7 +20,7 @@ class DeckBox extends StatelessWidget {
                     context,
                     SelectedSetPage(props: props)
                 );
-                await Provider.of<DeckListNotifier>(context).refreshDeckList();
+                await Provider.of<DeckListNotifier>(context, listen: false).refreshDeckList();
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: lightColorScheme.tertiary,

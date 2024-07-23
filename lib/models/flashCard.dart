@@ -18,8 +18,10 @@ class FlashCard with FlashCardMappable {
   String deckId;
 
   FlashCard(
-    this.id,
-    this.deckId,
-    this.deckIndex,
-  );
+      this.id,
+      this.deckId,
+      this.deckIndex,
+      this.sideFront,
+      this.sideBack
+      );
 }

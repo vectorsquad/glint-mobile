@@ -153,7 +153,7 @@ void Function(String) createParamSetter(Map<String, dynamic> params, String key)
 Future<void> deleteAuthCache() => cj.delete(apiUri("login"));
 
 Future<Val<List<T>, String>> getList<T>(ValRespFuture Function() fetcher,
-    T Function(Map<String, dynamic>) fromJson) async {
+    T Function(Map<String, dynamic>) fromMap) async {
   final listVal = Val<List<T>, String>("");
 
   final Val(:ok, :other) = await fetcher();
@@ -163,12 +163,18 @@ Future<Val<List<T>, String>> getList<T>(ValRespFuture Function() fetcher,
   }
 
   Iterable data = ok.data;
-  log(jsonEncode(data));
   List<T> concreteList = [];
 
+  log("INDIVIDUAL ITEMS IN LIST");
+  log("INDIVIDUAL ITEMS IN LIST");
+  log("INDIVIDUAL ITEMS IN LIST");
   for (final deckObj in data) {
-    concreteList.add(fromJson(deckObj));
+    log("${fromMap(deckObj)}");
+    concreteList.add(fromMap(deckObj));
   }
+  log("INDIVIDUAL ITEMS IN LIST");
+  log("INDIVIDUAL ITEMS IN LIST");
+  log("INDIVIDUAL ITEMS IN LIST");
 
   listVal.ok = concreteList;
 

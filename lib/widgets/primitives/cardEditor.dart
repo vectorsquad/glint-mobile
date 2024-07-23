@@ -5,17 +5,14 @@ Future<void> Function(String) createParamSetterNewOnly(BuildContext context, Map
 
     params[key] = s;
 
-    final cardListNotifier = Provider.of<CardListNotifier>(
-        context,
-        listen: false
-    );
+    cardListNotifier() => Provider.of<CardListNotifier>(context, listen: false);
 
-    cardListNotifier.queueUpdate(props, params);
+    cardListNotifier().queueUpdate(props, params);
 
-    cardListNotifier.refreshDelayed(
+    cardListNotifier().refreshDelayed(
         duration: const Duration(seconds: 1),
         beforeRefresh: () async {
-          await cardListNotifier.submitUpdates();
+          await cardListNotifier().submitUpdates();
         }
     );
 
@@ -39,6 +36,11 @@ class CardEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     params["_id"] = props.id;
     return Card(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.grey, width: 0.5),
+            borderRadius: BorderRadius.circular(10)
+        ),
         child: Column(
           key: ValueKey(props.id),
           children: [
@@ -54,22 +56,26 @@ class CardEditor extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    TextFormFieldC(
-                      name: "Front Text",
-                      initialValue: props.sideFront,
-                      onChanged: createParamSetterNewOnly(
-                          context, params, "side_front", props),
-                      validator: flashCardFrontValidator,
+                    Consumer<CardListNotifier>(
+                        builder: (context, model, child) => TextFormFieldC(
+                          name: "Front Text",
+                          initialValue: props.sideFront,
+                          onChanged: createParamSetterNewOnly(
+                              context, params, "side_front", props),
+                          validator: flashCardFrontValidator,
+                        )
                     ),
                     const SizedBox(
                       height: 10.0,
                     ),
-                    TextFormFieldC(
-                      name: "Back Text",
-                      initialValue: props.sideBack,
-                      onChanged: createParamSetterNewOnly(
-                          context, params, "side_back", props),
-                      validator: flashCardBackValidator,
+                    Consumer<CardListNotifier>(
+                        builder: (context, model, child) => TextFormFieldC(
+                          name: "Back Text",
+                          initialValue: props.sideBack,
+                          onChanged: createParamSetterNewOnly(
+                              context, params, "side_back", props),
+                          validator: flashCardBackValidator,
+                        )
                     ),
                     const SizedBox(
                       width: 20,

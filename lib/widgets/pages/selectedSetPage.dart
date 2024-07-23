@@ -36,7 +36,8 @@ class SelectedSetPage extends StatelessWidget {
                                 : ChangeNotifierProvider(
                                     create: (context) => CurrentCardNotifier(
                                         cardList: model.cached,
-                                        card: model.cached[0]),
+                                        card: model.cached[0]
+                                    ),
                                     child: const Column(
                                       children: [
                                         CardViewer(),
@@ -59,9 +60,11 @@ class SelectedSetPage extends StatelessWidget {
                                 RawMaterialButton(
                                     onPressed: () async {
                                       await pushRoute(
-                                          context, DeckEditor(props: props));
+                                          context,
+                                          DeckEditor(props: props)
+                                      );
 
-                                      Provider.of<CardListNotifier>(context)
+                                      Provider.of<DeckNotifier>(context, listen: false)
                                           .refresh();
                                     },
                                     elevation: 2.0,
@@ -76,7 +79,8 @@ class SelectedSetPage extends StatelessWidget {
                               ],
                             ),
                           ],
-                        )),
+                        )
+                ),
               ),
             ),
           ],

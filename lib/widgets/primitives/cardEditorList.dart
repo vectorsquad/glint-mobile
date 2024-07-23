@@ -1,19 +1,5 @@
 part of 'primitives.dart';
 
-Widget proxyDecorator(Widget child, int index, Animation<double> animation) {
-  return AnimatedBuilder(
-    animation: animation,
-    builder: (BuildContext context, Widget? child) {
-      return Material(
-        elevation: 0,
-        color: Colors.transparent,
-        child: child,
-      );
-    },
-    child: child,
-  );
-}
-
 class CardEditorList extends StatelessWidget {
 
   final Deck props;
@@ -26,35 +12,36 @@ class CardEditorList extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) =>
-      Consumer<CardListNotifier>(
-          builder: (context, model, child) {
+  Widget build(BuildContext context) => Consumer<CardListNotifier>(
+      builder: (context, model, child) => Theme(
+          data: ThemeData(
+              canvasColor: Colors.transparent
+          ),
+          child: ReorderableListView.builder(
+              itemCount: model.cached.length,
+              shrinkWrap: true,
+              onReorder: (oldIndex, newIndex) async {
 
-            return ReorderableListView(
-                physics: const NeverScrollableScrollPhysics(),
-                proxyDecorator: proxyDecorator,
-                shrinkWrap: true,
-                onReorder: (oldIndex, newIndex) async {
-                  final Val(ok:swapOk) = await swapCards(
-                      model.cached[oldIndex],
-                      model.cached[newIndex]
-                  );
+                log("old index, new index");
+                log("$oldIndex, $newIndex");
 
-                  if (swapOk == null) {
-                    return;
-                  }
+                final Val(ok:swapOk) = await swapCards(
+                    model.cached[oldIndex],
+                    model.cached[newIndex]
+                );
 
-                  await model.refresh();
-                },
-                children: [
-                  for(final props in model.cached)
-                    CardEditor(
-                        props: props,
-                        key: ValueKey(props.id)
-                    )
-                ]
-            );
-          }
-      );
+                if (swapOk == null) {
+                  return;
+                }
+
+                await model.refresh();
+              },
+              itemBuilder: (context, index) => CardEditor(
+                props: model.cached[index],
+                key: ValueKey(model.cached[index].id),
+              )
+          )
+      )
+  );
 
 }

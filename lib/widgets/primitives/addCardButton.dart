@@ -20,7 +20,7 @@ class AddCardButton extends StatelessWidget {
                   return;
                 }
 
-                model.refresh();
+                await model.refresh();
 
               },
               elevation: 2.0,

@@ -255,8 +255,8 @@ class FlashCardMapper extends ClassMapperBase<FlashCard> {
   };
 
   static FlashCard _instantiate(DecodingData data) {
-    return FlashCard(
-        data.dec(_f$id), data.dec(_f$deckId), data.dec(_f$deckIndex));
+    return FlashCard(data.dec(_f$id), data.dec(_f$deckId),
+        data.dec(_f$deckIndex), data.dec(_f$sideFront), data.dec(_f$sideBack));
   }
 
   @override
@@ -309,7 +309,12 @@ extension FlashCardValueCopy<$R, $Out> on ObjectCopyWith<$R, FlashCard, $Out> {
 
 abstract class FlashCardCopyWith<$R, $In extends FlashCard, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? id, String? deckId, int? deckIndex});
+  $R call(
+      {String? id,
+      String? deckId,
+      int? deckIndex,
+      String? sideFront,
+      String? sideBack});
   FlashCardCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -322,17 +327,26 @@ class _FlashCardCopyWithImpl<$R, $Out>
   late final ClassMapperBase<FlashCard> $mapper =
       FlashCardMapper.ensureInitialized();
   @override
-  $R call({String? id, String? deckId, int? deckIndex}) =>
+  $R call(
+          {String? id,
+          String? deckId,
+          int? deckIndex,
+          Object? sideFront = $none,
+          Object? sideBack = $none}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (deckId != null) #deckId: deckId,
-        if (deckIndex != null) #deckIndex: deckIndex
+        if (deckIndex != null) #deckIndex: deckIndex,
+        if (sideFront != $none) #sideFront: sideFront,
+        if (sideBack != $none) #sideBack: sideBack
       }));
   @override
   FlashCard $make(CopyWithData data) => FlashCard(
       data.get(#id, or: $value.id),
       data.get(#deckId, or: $value.deckId),
-      data.get(#deckIndex, or: $value.deckIndex));
+      data.get(#deckIndex, or: $value.deckIndex),
+      data.get(#sideFront, or: $value.sideFront),
+      data.get(#sideBack, or: $value.sideBack));
 
   @override
   FlashCardCopyWith<$R2, FlashCard, $Out2> $chain<$R2, $Out2>(
