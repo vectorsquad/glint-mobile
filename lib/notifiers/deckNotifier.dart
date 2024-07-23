@@ -20,6 +20,7 @@ class DeckNotifier extends ChangeNotifier {
   Future<void> refresh() async {
     final Val(:ok) = await getDeck({"_id": props.id});
     if(ok == null) {
+      log("could not retrieve deck");
       return;
     }
 

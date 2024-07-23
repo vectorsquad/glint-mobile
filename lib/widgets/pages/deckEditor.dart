@@ -10,67 +10,55 @@ class DeckEditor extends StatelessWidget {
   Widget build(BuildContext context) => ChangeNotifierProvider(
       create: (context) => DeckNotifier(props: props),
       child: PageBuilderRound(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Edit Deck',
-              style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.w900,
-                color: lightColorScheme.primary,
-              ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            Consumer<DeckNotifier>(
-              builder: (context, model, child) => TextFormFieldC(
-                  name: "Deck Name",
-                  initialValue: model.props.name,
-                  onChanged: (s) {
-                    model.setParam("name", s);
-                    model.refreshDelayed(
-                        beforeRefresh: () async {
-                          final Val(:ok, :other) = await updateDeck(model.params);
-                          // if(ok == null) {
-                          //   log(other);
-                          // }
-
-                          Provider.of<DeckListNotifier>(context, listen: false).refreshDeckList();
-                        },
-                        duration: const Duration(seconds: 2)
-                    );
-                  },
-                  validator: setNameValidator
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            const Divider(),
-            Consumer<DeckNotifier>(
-                builder: (context, model, child) => ChangeNotifierProvider(
-                    create: (context) => CardListNotifier(
-                      deckId: model.props.id,
-                    ),
-                    child: Flexible(
-                        child: CardEditorList(
+            child:
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Edit Deck',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w900,
+                    color: lightColorScheme.primary,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                Consumer<DeckNotifier>(
+                  builder: (context, model, child) => TextFormFieldC(
+                      name: "Deck Name",
+                      initialValue: model.props.name,
+                      onChanged: (s) {
+                        model.setParam("name", s);
+                        model.refreshDelayed(
+                            beforeRefresh: () async {
+                              await updateDeck(model.params);
+                              await model.refresh();
+                            },
+                            duration: const Duration(seconds: 2)
+                        );
+                      },
+                      validator: setNameValidator
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                const Divider(),
+                Expanded(
+                    child: Consumer<DeckNotifier>(
+                        builder: (context, model, child) => CardEditorList(
                             props: model.props
                         )
                     )
-                )
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                const AddCardButton()
+              ],
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Consumer<DeckNotifier>(
-              builder: (context, model, child) => AddCardButton(
-                  props: model.props
-              ),
-            )
-          ],
-        ),
       )
   );
 }

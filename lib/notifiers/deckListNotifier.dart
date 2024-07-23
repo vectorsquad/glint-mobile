@@ -8,12 +8,12 @@ class DeckListNotifier extends ChangeNotifier {
   List<Deck> _cache = [];
 
   DeckListNotifier() {
-    refreshDeckList();
+    refresh();
   }
 
   UnmodifiableListView<Deck> get cached => UnmodifiableListView(_cache);
 
-  Future<void> refreshDeckList() async {
+  Future<void> refresh() async {
     final Val(:ok) = await getList(getDeckList, DeckMapper.fromMap);
     if (ok == null) {
       return;

@@ -1,14 +1,14 @@
 part of 'notifiers.dart';
 
 class CardListNotifier extends ChangeNotifier {
-  String deckId;
+  Deck props;
   List<FlashCard> _cache = [];
 
   UnmodifiableListView<FlashCard> get cached => UnmodifiableListView(_cache);
   Timer? queuedRefresh;
   Map<String, Map<String, dynamic>> _queuedParams = HashMap();
 
-  CardListNotifier({required this.deckId}) {
+  CardListNotifier({required this.props}) {
     refresh();
   }
 
@@ -41,7 +41,7 @@ class CardListNotifier extends ChangeNotifier {
   }
 
   Future<void> refresh() async {
-    ValRespFuture getCardListAll() => getCardList({"id_deck": deckId});
+    ValRespFuture getCardListAll() => getCardList({"id_deck": props.id});
 
     final Val(:ok) = await getList(getCardListAll, FlashCardMapper.fromMap);
     if (ok == null) {

@@ -27,63 +27,63 @@ class SelectedSetPage extends StatelessWidget {
             ),
             Consumer<DeckNotifier>(
               builder: (context, model, child) => ChangeNotifierProvider(
-                create: (context) => CardListNotifier(deckId: model.props.id),
+                create: (context) => CardListNotifier(props: model.props),
                 child: Consumer<CardListNotifier>(
                     builder: (context, model, child) => Column(
-                          children: [
-                            model.cached.isEmpty
-                                ? const Text("No Cards Created")
-                                : ChangeNotifierProvider(
-                                    create: (context) => CurrentCardNotifier(
-                                        cardList: model.cached,
-                                        card: model.cached[0]
-                                    ),
-                                    child: const Column(
-                                      children: [
-                                        CardViewer(),
-                                        SizedBox(height: 20.0),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              ChangeCardButton(isNext: false),
-                                              ChangeCardButton(isNext: true),
-                                            ])
-                                      ],
-                                    )),
-                            const SizedBox(
-                              height: 20.0,
+                      children: [
+                        model.cached.isEmpty
+                            ? const Text("No Cards Created")
+                            : ChangeNotifierProvider(
+                            create: (context) => CurrentCardNotifier(
+                                cardList: model.cached,
+                                card: model.cached[0]
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: const Column(
                               children: [
-                                RawMaterialButton(
-                                    onPressed: () async {
-                                      await pushRoute(
-                                          context,
-                                          DeckEditor(props: props)
-                                      );
-
-                                      Provider.of<DeckNotifier>(context, listen: false)
-                                          .refresh();
-                                    },
-                                    elevation: 2.0,
-                                    fillColor: lightColorScheme.primary,
-                                    padding: const EdgeInsets.all(15.0),
-                                    shape: const CircleBorder(),
-                                    child: const Icon(
-                                      Icons.edit,
-                                      size: 40.0,
-                                      color: Colors.white,
-                                    ))
+                                CardViewer(),
+                                SizedBox(height: 20.0),
+                                Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ChangeCardButton(isNext: false),
+                                      ChangeCardButton(isNext: true),
+                                    ])
                               ],
-                            ),
+                            )),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RawMaterialButton(
+                                onPressed: () async {
+                                  await pushRoute(
+                                      context,
+                                      DeckEditor(props: props)
+                                  );
+
+                                  Provider.of<DeckNotifier>(context, listen: false)
+                                      .refresh();
+                                },
+                                elevation: 2.0,
+                                fillColor: lightColorScheme.primary,
+                                padding: const EdgeInsets.all(15.0),
+                                shape: const CircleBorder(),
+                                child: const Icon(
+                                  Icons.edit,
+                                  size: 40.0,
+                                  color: Colors.white,
+                                ))
                           ],
-                        )
+                        ),
+                      ],
+                    )
                 ),
               ),
             ),
           ],
         ),
-      )));
+          )));
 }

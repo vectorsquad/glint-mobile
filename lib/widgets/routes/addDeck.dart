@@ -39,7 +39,6 @@ class AddDeckRoute extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () async {
-                        log(jsonEncode(params));
 
                         final Val(:ok, :other) = await createDeck(params);
                         if (ok == null) {
@@ -50,9 +49,6 @@ class AddDeckRoute extends StatelessWidget {
                           );
                           return;
                         }
-
-                        Provider.of<DeckListNotifier>(context, listen: false)
-                            .refreshDeckList();
 
                         Navigator.pop(context);
                       },
