@@ -16,9 +16,7 @@ class EditDeckButton extends StatelessWidget {
             )
         );
 
-        await Provider.of<DeckNotifier>(
-            context
-        ).refresh();
+        await Provider.of<DeckNotifier>(context, listen: false).refresh();
 
       },
       elevation: 2.0,
