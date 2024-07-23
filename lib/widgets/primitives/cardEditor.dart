@@ -37,7 +37,6 @@ class CardEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(jsonEncode(props));
     params["_id"] = props.id;
     return Card(
         child: Column(
