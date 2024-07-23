@@ -7,7 +7,7 @@ class DeckListPage extends StatelessWidget {
   Widget build(BuildContext context) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => DeckListNotifier()),
-            ChangeNotifierProvider(create: (_) => ShowCheckboxNotifier())
+            ChangeNotifierProvider(create: (_) => CheckedCountNotifier())
           ],
           child: PageBuilderRound(
               child: Column(
@@ -32,25 +32,23 @@ class DeckListPage extends StatelessWidget {
                     height: 20.0,
                   ),
                   Consumer<DeckListNotifier>(
-                      builder: (context, deckListModel, child) => Consumer<ShowCheckboxNotifier>(
-                        builder: (context, showCheckboxModel, child) => CircleButton(
-                            icon: showCheckboxModel.checked == 0 ?
+                      builder: (context, deckList, child) => Consumer<CheckedCountNotifier>(
+                        builder: (context, checkedCount, child) => CircleButton(
+                            icon: checkedCount.none ?
                             Icons.add :
                             Icons.delete_forever,
-                            fillColor: showCheckboxModel.checked == 0 ?
+                            fillColor: checkedCount.none ?
                             Colors.green :
                             Colors.pink,
                             onPressed: () async {
 
-                              log("${showCheckboxModel.checked}");
-
-                              if(showCheckboxModel.checked == 0) {
+                              if(checkedCount.none) {
                                 await pushRoute(context, const AddDeckRoute());
-                                await deckListModel.refresh();
+                                await deckList.refresh();
                                 return;
                               }
 
-                              await deckListModel.submitDelete();
+                              await deckList.submitDelete();
 
                             }
                         ),

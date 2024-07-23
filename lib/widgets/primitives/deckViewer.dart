@@ -11,51 +11,39 @@ class DeckListViewer extends StatelessWidget {
           itemBuilder: (context, index) => Column(
               children: [
                 ChangeNotifierProvider(
-                    create: (_) => CheckboxStateNotifier(),
-                    child: Consumer<CheckboxStateNotifier>(
-                        builder: (context, checkboxState, child) => Consumer<ShowCheckboxNotifier>(
-                            builder: (context, showCheckboxModel, child) => Column(
+                    create: (_) => CheckedStateNotifier(),
+                    child: Consumer<CheckedStateNotifier>(
+                        builder: (context, checkedState, child) => Consumer<CheckedCountNotifier>(
+                            builder: (context, checkedCount, child) => Column(
                               children: [
                                 GestureDetector(
                                     onTap: () async {
+                                      final props = deckListModel.cached[index];
 
-                                      if(showCheckboxModel.showCheckbox) {
-                                        checkboxState.toggle();
-
-                                        showCheckboxModel.mutateChecked(checkboxState.enabled);
-
-                                        if(showCheckboxModel.checked == 0) {
-                                          showCheckboxModel.hide();
-                                        }
-
+                                      if(!checkedCount.none) {
+                                        checkedState.toggle((b) {
+                                          checkedCount.mutate = b;
+                                          deckListModel.markDelete(b, props.id, props);
+                                        });
                                         return;
                                       }
 
-                                      await pushRoute(
-                                          context,
-                                          SelectedSetPage(props: deckListModel.cached[index])
-                                      );
-                                      await deckListModel.refresh();
-
                                     },
                                     onLongPress: () {
+                                      final props = deckListModel.cached[index];
+
                                       HapticFeedback.vibrate();
-                                      checkboxState.toggle();
-                                      showCheckboxModel.mutateChecked(checkboxState.enabled);
-
-                                      if(showCheckboxModel.checked == 0) {
-                                        showCheckboxModel.hide();
-                                      } else {
-                                        showCheckboxModel.show();
-                                      }
-
+                                      checkedState.toggle((b) {
+                                        checkedCount.mutate = b;
+                                        deckListModel.markDelete(b, props.id, props);
+                                      });
                                     },
                                     child: ListTile(
-                                      leading: showCheckboxModel.showCheckbox ?
+                                      leading: checkedCount.none ?
+                                      const Text(""):
                                       Checkbox(
-                                          value: checkboxState.enabled, onChanged: (bool? value) {  }
-                                      )
-                                          : const Text(""),
+                                          value: checkedState.checked, onChanged: (bool? value) {  }
+                                      ),
                                       title: Text(deckListModel.cached[index].name),
                                     )
                                 ),

@@ -9,21 +9,32 @@ class DeckListNotifier extends ChangeNotifier {
 
   Map<String, Deck> _queuedForDelete = HashMap();
 
-  void queueDelete(String key, Deck value) => _queuedForDelete[key] = value;
+  void cacheDelete(String key, Deck value) => _queuedForDelete[key] = value;
+
   void cancelDelete(String key) => _queuedForDelete.remove(key);
+
+  void markDelete(bool delete, String key, Deck value) {
+    if(delete) {
+      cacheDelete(key, value);
+    } else {
+      cancelDelete(key);
+    }
+    notifyListeners();
+  }
+
   void resetDelete() => _queuedForDelete = HashMap();
 
   Future<void> submitDelete() async {
+    log("submitting queued deletes...");
+    log("amount queued for deletion: ${_queuedForDelete.values.length}");
     for(final props in _queuedForDelete.values) {
+      log("submitting queued deletes...");
 
       final Val(:ok, :other) = await req(() => dio.post(
         apiUrl("deleteDeck"),
         data: {"_id": props.id}
       ));
-
-      if(ok == null) {
-        log(other);
-      }
+      log(other);
     }
 
     refresh();
