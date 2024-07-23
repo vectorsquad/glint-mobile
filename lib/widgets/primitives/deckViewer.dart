@@ -28,6 +28,8 @@ class DeckListViewer extends StatelessWidget {
                                         return;
                                       }
 
+                                      await pushRoute(context, SelectedSetPage(props: props));
+
                                     },
                                     onLongPress: () {
                                       final props = deckListModel.cached[index];
