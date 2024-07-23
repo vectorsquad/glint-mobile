@@ -19,7 +19,6 @@ import '../../scripts/util.dart';
 import '../../theme/theme.dart';
 
 part 'circleButton.dart';
-part 'deckBox.dart';
 part 'customScaffold.dart';
 part 'deckViewer.dart';
 part 'textFormField.dart';
