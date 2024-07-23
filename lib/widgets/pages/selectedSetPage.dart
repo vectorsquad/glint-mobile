@@ -49,10 +49,10 @@ class SelectedSetPage extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           ChangeCardButton(
-                                              isNext: true
+                                              isNext: false
                                           ),
                                           ChangeCardButton(
-                                              isNext: false
+                                              isNext: true
                                           ),
                                         ]
                                     )
