@@ -8,6 +8,7 @@ import 'package:login_signup/scripts/requests.dart';
 import 'package:login_signup/scripts/util.dart';
 
 import 'package:login_signup/models/models.dart';
+import 'package:provider/provider.dart';
 
 part 'deckListNotifier.dart';
 part 'cardListNotifier.dart';

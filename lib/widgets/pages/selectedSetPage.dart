@@ -64,29 +64,8 @@ class SelectedSetPage extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                RawMaterialButton(
-                                    onPressed: () async {
-                                      await pushRoute(
-                                          context,
-                                          DeckEditor(
-                                              props: props
-                                          )
-                                      );
-
-                                      Provider.of<CardListNotifier>(
-                                          context
-                                      ).refresh();
-
-                                    },
-                                    elevation: 2.0,
-                                    fillColor: lightColorScheme.primary,
-                                    padding: const EdgeInsets.all(15.0),
-                                    shape: const CircleBorder(),
-                                    child: const Icon(
-                                      Icons.edit,
-                                      size: 40.0,
-                                      color: Colors.white,
-                                    )
+                                EditDeckButton(
+                                    props: props
                                 )
                               ],
                             ),

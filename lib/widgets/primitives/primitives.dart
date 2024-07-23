@@ -29,3 +29,4 @@ part 'cardEditorList.dart';
 part 'addCardButton.dart';
 part 'cardViewer.dart';
 part 'changeCardButton.dart';
+part 'editDeckButton.dart';

@@ -38,7 +38,7 @@ class DeckEditor extends StatelessWidget {
                                 log(other);
                               }
 
-                              Provider.of<DeckListNotifier>(context).refreshDeckList();
+                              Provider.of<DeckListNotifier>(context, listen: false).refreshDeckList();
                             },
                             duration: const Duration(seconds: 2)
                         );

@@ -29,13 +29,6 @@ class CardEditorList extends StatelessWidget {
   Widget build(BuildContext context) =>
       Consumer<CardListNotifier>(
           builder: (context, model, child) {
-            log("lmao");
-            log("lmao");
-            log("cheese");
-            log(jsonEncode(model.cached));
-            log("cheese");
-            log("lmao");
-            log("lmao");
 
             return ReorderableListView(
                 physics: const NeverScrollableScrollPhysics(),

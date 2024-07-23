@@ -6,11 +6,13 @@ class DeckNotifier extends ChangeNotifier {
   Map<String, dynamic> params = HashMap();
   Timer? _queuedRefresh;
 
-  DeckNotifier({required this.props});
+  DeckNotifier({required this.props}) {
+    _resetParams();
+  }
 
   void setParam(String key, dynamic value) => params[key] = value;
 
-  void resetParams() {
+  void _resetParams() {
     params = props.toMap();
     params["_id"] = props.id;
   }
@@ -22,7 +24,7 @@ class DeckNotifier extends ChangeNotifier {
     }
 
     props = DeckMapper.fromMap(ok.data[0]);
-    resetParams();
+    _resetParams();
 
     notifyListeners();
   }
